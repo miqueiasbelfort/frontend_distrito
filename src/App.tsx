@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 
 // pages
 import Login from './pages/Login'
+import Register from './pages/Register'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
     <Navbar/>
     <Routes>
       <Route path='/' element={<Login/>}/>
+      <Route path='/register' element={<Register/>}/>
     </Routes>
 
     </BrowserRouter>

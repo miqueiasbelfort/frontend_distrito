@@ -1,0 +1,34 @@
+.passwordContainerForm{
+    width: 400px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--gray-color);
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+.btnEyerPassword {
+    width: 10%;
+    height: 100%;
+    text-align: center;
+}
+.btnEyerPassword svg {
+    color: #000;
+    cursor: pointer;
+}
+.inputPasswordForm{
+    width: 90%;
+    height: 100%;
+    padding: 1em;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+/*MOBILE*/
+@media screen and (max-width: 768px){
+    .passwordContainerForm {
+        width: 100%;
+    }
+}

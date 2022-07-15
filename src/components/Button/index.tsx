@@ -2,13 +2,15 @@ import React from 'react'
 import styles from "./Button.module.css"
 
 interface Props {
-    textBtn: string
+    textBtn: string,
+    type: any
 }
 
-function Navbar({textBtn}: Props) {
+function Navbar({textBtn, type}: Props) {
 
   return (
     <button
+        type={type}
         className={styles.button}
     >
         {textBtn}

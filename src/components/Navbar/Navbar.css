@@ -6,6 +6,7 @@
     justify-content: space-between;
     padding: 0 3em;
     box-shadow: 0px -2px 6px 0px #000000b1;
+    background-color: #fff;
 }
 .navbar h1 {
     font-family: 'Inter', sans-serif;
@@ -29,4 +30,11 @@
 }
 .themeChange{
     cursor: pointer;
+}
+
+/*MOBILE*/
+@media screen and (max-width: 768px){
+    .navbar {
+        padding: 0 1em;
+    }
 }
