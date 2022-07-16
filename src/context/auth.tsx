@@ -1,40 +1,46 @@
-import React, {createContext, ReactNode, useState} from "react"
+import React, {createContext, useState} from "react"
+
+import {useNavigate} from "react-router-dom"
 
 type authContextType = {
     loading: boolean,
     authenticated: boolean,
     user: string,
-    login: (email: string, password: string) => void,
+    register: (username: string, email: string, password: string, confirmPassowrd: string) => void,
     logout: () => void
 }
 
 type authContextProps = {
-    children: ReactNode
+    children: React.ReactNode
 }
 
-const initialValue = {
-    loading: true,
-    authenticated: false,
-    user: "",
-    login: (email: string, password: string) => "",
-    logout: () => ""
-}
-
-export const authContext = createContext<authContextType>(initialValue)
+export const authContext = createContext<authContextType>({})
 
 export const authContextProvider = ({children}: authContextProps) => {
 
-    const [user, setUser] = useState<string | null>()
+    const navigate = useNavigate()
 
-    const login = (email: string, password: string) => {
-        setUser("user")
+    const [user, setUser] = useState<{
+        id: string, email: string
+    } | null>(null)
+    const [loading, setLoading] = useState<boolean>(true)
+
+    const register = (username: string, email: string, password: string, confirmPassword: string) => {
+        console.log("user", { username, email, password, confirmPassword })
+
+        if(password === "12345"){
+            setUser({id: "1234", email})
+            navigate("/feed")
+        }
+    }
+    const logout = () => {
+        setUser(null)
+        navigate("/")
     }
 
     return (
         <authContext.Provider 
-            value={
-                user, login
-            }
+            value={{loading, register, logout, authenticated: !!user, user}}
         > 
             {children}
         </authContext.Provider>

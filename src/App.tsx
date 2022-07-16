@@ -1,4 +1,4 @@
-import React,{ useState } from 'react'
+import React,{ useState, useContext } from 'react'
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import "./App.css"
 
@@ -9,20 +9,25 @@ import Navbar from './components/Navbar'
 import Login from './pages/Login'
 import Register from './pages/Register'
 
+// Comtext
+import {authContextProvider} from "./context/auth"
+
 function App() {
 
   const handleClick = () => document.body.classList.toggle("dark") // Add dark theme
 
   return (
-    <BrowserRouter>
-    
-    <Navbar/>
-    <Routes>
-      <Route path='/' element={<Login/>}/>
-      <Route path='/register' element={<Register/>}/>
-    </Routes>
+    <authContextProvider>
+      
+      <BrowserRouter>
+        <Navbar/>
+        <Routes>
+          <Route path='/' element={<Login/>}/>
+          <Route path='/register' element={<Register/>}/>
+        </Routes>
+      </BrowserRouter>
 
-    </BrowserRouter>
+    </authContextProvider>
   )
 }
 
