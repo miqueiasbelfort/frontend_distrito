@@ -19,6 +19,10 @@ function Navbar() {
     setDark(!dark)
   }
 
+  const handleLoggout = () => {
+    logout()
+  }
+
   return (
     <nav className='navbar'>
       <h1>Distrito</h1>
@@ -26,7 +30,7 @@ function Navbar() {
         {
           user ? (
             <li>
-              <NavLink to="/register">Perfil</NavLink>
+              <button onClick={handleLoggout}>Sair</button>
             </li>
           ) : (
             <>
