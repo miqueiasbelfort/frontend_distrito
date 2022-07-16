@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import "./Navbar.css"
 
+// Context
+import {AuthContext} from "../../context/auth"
 
 // Components
 import {NavLink} from "react-router-dom"
 import {GiMoonBats, GiSunCloud} from "react-icons/gi"
 
 function Navbar() {
+
+  const {logout, user} = useContext(AuthContext)
 
     const [dark, setDark] = useState<boolean>(true)
 
@@ -19,12 +23,22 @@ function Navbar() {
     <nav className='navbar'>
       <h1>Distrito</h1>
       <ul>
-        <li>
-            <NavLink to="/register">Cadastrar</NavLink>
-        </li>
-        <li>
-            <NavLink to="/">Entrar</NavLink>
-        </li>
+        {
+          user ? (
+            <li>
+              <NavLink to="/register">Perfil</NavLink>
+            </li>
+          ) : (
+            <>
+              <li>
+                <NavLink to="/register">Cadastrar</NavLink>
+              </li>
+              <li>
+                  <NavLink to="/">Entrar</NavLink>
+              </li>
+            </>
+          )
+        }
         <li>
             {
                 dark ? (

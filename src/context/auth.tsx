@@ -1,12 +1,10 @@
 import React, {createContext, useState} from "react"
-
 import {useNavigate} from "react-router-dom"
 
 type authContextType = {
     loading: boolean,
-    authenticated: boolean,
-    user: string,
-    register: (username: string, email: string, password: string, confirmPassowrd: string) => void,
+    user: boolean,
+    register: () => void,
     logout: () => void
 }
 
@@ -14,36 +12,33 @@ type authContextProps = {
     children: React.ReactNode
 }
 
-export const authContext = createContext<authContextType>({})
+export const AuthContext = createContext<any>({})
 
-export const authContextProvider = ({children}: authContextProps) => {
-
+export const AuthContextProvider = ({children}: authContextProps) => {
     const navigate = useNavigate()
 
-    const [user, setUser] = useState<{
-        id: string, email: string
-    } | null>(null)
+    const [user, setUser] = useState<any>()
     const [loading, setLoading] = useState<boolean>(true)
 
-    const register = (username: string, email: string, password: string, confirmPassword: string) => {
-        console.log("user", { username, email, password, confirmPassword })
-
-        if(password === "12345"){
-            setUser({id: "1234", email})
-            navigate("/feed")
-        }
+    const register = (username: string, email: string, password: string, confirmPassowrd: string) => {
+        setUser(true)
+        setLoading(false)
+        navigate("/")   
     }
+
     const logout = () => {
-        setUser(null)
-        navigate("/")
+        setUser(false)
     }
 
     return (
-        <authContext.Provider 
-            value={{loading, register, logout, authenticated: !!user, user}}
-        > 
-            {children}
-        </authContext.Provider>
+        <AuthContext.Provider 
+            value={{
+                loading,
+                user,
+                register,
+                logout
+            }}
+        > {children} </AuthContext.Provider>
     )
 
 }

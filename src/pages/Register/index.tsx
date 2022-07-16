@@ -2,9 +2,14 @@
 // Components
 import Button from "../../components/Button"
 import {FaEye, FaEyeSlash} from "react-icons/fa"
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useContext } from 'react'
+
+// Context
+import {AuthContext} from "../../context/auth"
 
 function Register(){
+
+    const {register, user, loading} = useContext(AuthContext)
 
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
@@ -19,13 +24,9 @@ function Register(){
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
         // API
-        console.log({
-            username,
-            email,
-            password,
-            confirPassword
-        })
+        register(username, email, password, confirPassword)
     }
 
     const handleVisible = (confir?: boolean) => {

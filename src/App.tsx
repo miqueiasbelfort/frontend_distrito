@@ -9,25 +9,22 @@ import Navbar from './components/Navbar'
 import Login from './pages/Login'
 import Register from './pages/Register'
 
-// Comtext
-import {authContextProvider} from "./context/auth"
+// Context
+import { AuthContextProvider } from './context/auth'
 
-function App() {
+const App: React.FC = () => {
 
-  const handleClick = () => document.body.classList.toggle("dark") // Add dark theme
 
-  return (
-    <authContextProvider>
-      
+  return (      
       <BrowserRouter>
-        <Navbar/>
-        <Routes>
-          <Route path='/' element={<Login/>}/>
-          <Route path='/register' element={<Register/>}/>
-        </Routes>
+        <AuthContextProvider>
+          <Navbar/>
+          <Routes>
+            <Route path='/' element={<Login/>}/>
+            <Route path='/register' element={<Register/>}/>
+          </Routes>
+        </AuthContextProvider>
       </BrowserRouter>
-
-    </authContextProvider>
   )
 }
 
