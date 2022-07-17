@@ -16,9 +16,9 @@ export const AuthContextProvider = ({children}: authContextProps) => {
     const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
-        const recoveredUser = localStorage.getItem("user")
-        if(recoveredUser){
-            setUser(JSON.parse(recoveredUser))
+        const recoveredUserID = localStorage.getItem("user")
+        if(recoveredUserID){
+            setUser(recoveredUserID)
         }
         setLoading(false)
     }, [])
@@ -27,14 +27,16 @@ export const AuthContextProvider = ({children}: authContextProps) => {
 
         const response = await registerUser(username, email, password, confirPassowrd)
 
-        console.log(response)
+        //console.log(response)
 
-        const loggedUser = response.data.user 
         const token = response.data.token
+        const userID = response.data.userId
 
-        setUser(loggedUser)
-        localStorage.setItem("user", JSON.stringify(loggedUser))
+
+        setUser(userID)
+
         localStorage.setItem("token", token)
+        localStorage.setItem("user", userID)
 
         api.defaults.headers.Authorization = `Bearer ${token}`
 
@@ -43,8 +45,8 @@ export const AuthContextProvider = ({children}: authContextProps) => {
 
     const logout = () => {
         setUser(false)
-        localStorage.removeItem("user")
         localStorage.removeItem("token")
+        localStorage.removeItem("user")
         api.defaults.headers.Authorization = null
         navigate("/")
     }
