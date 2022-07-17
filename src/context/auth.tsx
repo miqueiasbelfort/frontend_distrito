@@ -1,7 +1,7 @@
 import React, {createContext, useState, useEffect} from "react"
 import {useNavigate} from "react-router-dom"
 
-import {api, registerUser} from "../services/api"
+import {api, registerUser, loginUser} from "../services/api"
 
 type authContextProps = {
     children: React.ReactNode
@@ -43,6 +43,23 @@ export const AuthContextProvider = ({children}: authContextProps) => {
         navigate("/")   
     }
 
+    const login = async (email: string, password: string) => {
+
+        const response = await loginUser(email, password)
+        const token = response.data.token
+        const userID = response.data.userId
+
+        setUser(userID)
+
+        localStorage.setItem("token", token)
+        localStorage.setItem("user", userID)
+
+        api.defaults.headers.Authorization = `Bearer ${token}`
+
+        navigate("/")   
+
+    }
+
     const logout = () => {
         setUser(false)
         localStorage.removeItem("token")
@@ -57,6 +74,7 @@ export const AuthContextProvider = ({children}: authContextProps) => {
                 loading,
                 user,
                 register,
+                login,
                 logout
             }}
         > {children} </AuthContext.Provider>

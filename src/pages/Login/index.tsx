@@ -3,10 +3,14 @@ import "./Login.css"
 // Components
 import Button from "../../components/Button"
 import {FaEye, FaEyeSlash} from "react-icons/fa"
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useContext } from 'react'
 
+// Context
+import {AuthContext} from "../../context/auth"
 
 function Login() {
+
+  const {login, loading} = useContext(AuthContext)
 
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
@@ -17,7 +21,7 @@ function Login() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     // API
-    console.log(email, password)
+    login(email, password)
   }
 
   const handleVisible = () => {
@@ -27,6 +31,12 @@ function Login() {
     } else {
       setInputType("password")
     }
+  }
+
+  if(loading){
+    return (
+      <h1>Carregando...</h1>
+    )
   }
 
   return (

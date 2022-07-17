@@ -9,7 +9,7 @@ import {AuthContext} from "../../context/auth"
 
 function Register(){
 
-    const {register, user, loading} = useContext(AuthContext)
+    const {register, loading} = useContext(AuthContext)
 
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
