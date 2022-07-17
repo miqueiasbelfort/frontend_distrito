@@ -1,35 +1,40 @@
-import React, {} from "react"
+import React, {useEffect, useState} from "react"
 import "./Feed.css"
+import {api} from "../../services/api"
 
-// componets
-import {HiOutlineBadgeCheck} from "react-icons/hi"
-import {IoIosCloseCircleOutline} from "react-icons/io"
+// Components
 import { Link } from "react-router-dom"
+import CardPost from "../../components/CardPost"
 
-// Img test
-import PerfilImage from "../../assets/me(1).jpg"
 import FeedImage from "../../assets/04.jpg"
 
 const Feed = () => {
+
+    const [posts, setPosts] = useState<any>([])
+
+    useEffect(() => {
+
+       api.get("/posts").then(res => setPosts(res.data))
+
+    }, [])
+
     return (
         <div className="containerFeed">
             <div className="feed">
-                <div className="cardFeed">
-                    <div className="feedUserInformations">
-                        <img src={PerfilImage} alt="prifle" />
-                        <h3>Miqueias_Belfort</h3>
+                {posts && posts.map((post: any) => (
+                    <CardPost
+                        username="miqueias_belfort"
+                        userPhoto="test.jpg"
+                        text="loream"
+                        image="test.jpg"
+                    />
+                ))}
+                {posts.length === 0 && (
+                    <div className="dontHavePosts">
+                        <h1>NÃO HÁ POSTS</h1>
+                        <Link to="/posts/create"><span>Criar Posts</span></Link>
                     </div>
-                    <img className="imgPost" src={FeedImage} alt="Feed Image" />
-                    <div className="feedInformations">
-                        <div className="completeOrNot">
-                            <HiOutlineBadgeCheck/>
-                            <span>Completo</span>
-                        </div>
-                        <Link to="/">
-                            Ver Mais
-                        </Link> 
-                    </div>
-                </div>
+                )}
             </div>
             <div className="listOfBestguilds">
                 <span>Melhores guildas do rank</span>

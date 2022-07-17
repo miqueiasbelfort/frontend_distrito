@@ -1,0 +1,43 @@
+.cardFeed{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 3px 4px 4px 0px #00000040;
+}
+.feedUserInformations{
+    display: flex;
+    align-items: center;
+}
+.feedUserInformations img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.imgPost{
+    border-radius: 7px;
+}
+.feedInformations{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.completeOrNot{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+.completeOrNot svg {
+    font-size: 1em;
+}
+
+@media screen and (max-width: 768px){
+    .cardFeed {
+        width: 95%;
+    }
+}
+
