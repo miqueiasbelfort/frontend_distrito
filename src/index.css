@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 body {
     background-color: #F2F2F2;
@@ -76,6 +77,16 @@ a {
     color: #fff;
 }
 .dark .form {
+    background-color: var(--dark-mode800);
+}
+.dark .logoutBTN{
+    color: #fff;
+}
+/*feed*/
+.dark .cardFeed{
+    background-color: var(--dark-mode800);
+}
+.dark .listOfBestguilds{
     background-color: var(--dark-mode800);
 }
 

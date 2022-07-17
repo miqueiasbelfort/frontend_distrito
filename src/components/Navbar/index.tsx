@@ -14,12 +14,12 @@ function Navbar() {
 
     const [dark, setDark] = useState<boolean>(true)
 
-  const handleTheme = () => {
-    document.body.classList.toggle("dark") // Add dark theme
-    setDark(!dark)
+  const handleTheme = (): void => {
+      document.body.classList.toggle("dark")
+      setDark(!dark)
   }
 
-  const handleLoggout = () => {
+  const handleLoggout = (): void => {
     logout()
   }
 
@@ -29,9 +29,14 @@ function Navbar() {
       <ul>
         {
           user ? (
-            <li>
-              <button onClick={handleLoggout}>Sair</button>
-            </li>
+            <>
+              <li>
+                <NavLink to="/feed">Feed</NavLink>
+              </li>
+              <li>
+                <button onClick={handleLoggout} className="logoutBTN">Sair</button>
+              </li>
+            </>
           ) : (
             <>
               <li>

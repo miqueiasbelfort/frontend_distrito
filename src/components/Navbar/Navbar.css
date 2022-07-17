@@ -28,6 +28,11 @@
     align-items: center;
     justify-content: center;
 }
+.logoutBTN{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
 .themeChange{
     cursor: pointer;
 }

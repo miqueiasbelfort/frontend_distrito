@@ -33,14 +33,14 @@ export const AuthContextProvider = ({children}: authContextProps) => {
         const userID = response.data.userId
 
 
-        setUser(userID)
+        setUser(true)
 
         localStorage.setItem("token", token)
         localStorage.setItem("user", userID)
 
         api.defaults.headers.Authorization = `Bearer ${token}`
 
-        navigate("/")   
+        navigate("/feed")   
     }
 
     const login = async (email: string, password: string) => {
@@ -49,14 +49,14 @@ export const AuthContextProvider = ({children}: authContextProps) => {
         const token = response.data.token
         const userID = response.data.userId
 
-        setUser(userID)
+        setUser(true)
 
         localStorage.setItem("token", token)
         localStorage.setItem("user", userID)
 
         api.defaults.headers.Authorization = `Bearer ${token}`
 
-        navigate("/")   
+        navigate("/feed")   
 
     }
 
