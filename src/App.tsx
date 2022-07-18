@@ -13,6 +13,7 @@ import Navbar from './components/Navbar'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Feed from "./pages/Feed"
+import CreatePost from './pages/CreatePost'
 
 // Context
 import { AuthContextProvider, AuthContext } from './context/auth'
@@ -43,6 +44,7 @@ const App: React.FC = () => {
             <Route path='/' element={<InPrivate><Login/></InPrivate>}/>
             <Route path='/register' element={<InPrivate><Register/></InPrivate>}/>
             <Route path='/feed' element={ <Private><Feed/></Private> }/>
+            <Route path='/create/post' element={ <Private><CreatePost/></Private> }/>
           </Routes>
         </AuthContextProvider>
       </BrowserRouter>

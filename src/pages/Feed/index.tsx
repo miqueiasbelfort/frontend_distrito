@@ -32,7 +32,7 @@ const Feed = () => {
                 {posts.length === 0 && (
                     <div className="dontHavePosts">
                         <h1>NÃO HÁ POSTS</h1>
-                        <Link to="/posts/create"><span>Criar Posts</span></Link>
+                        <Link to="/create/post"><span>Criar Posts</span></Link>
                     </div>
                 )}
             </div>

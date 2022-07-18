@@ -89,6 +89,9 @@ a {
 .dark .listOfBestguilds{
     background-color: var(--dark-mode800);
 }
+.dark .containerDark{
+    background-color: var(--dark-mode800);
+}
 
 :root {
     --primary-color: #F2F2F2;
