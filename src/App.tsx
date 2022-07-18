@@ -15,7 +15,7 @@ import Register from './pages/Register'
 import Feed from "./pages/Feed"
 import CreatePost from './pages/CreatePost'
 import CreateGuild from './pages/CreateGuild'
-
+import Profile from "./pages/Profile"
 
 // Context
 import { AuthContextProvider, AuthContext } from './context/auth'
@@ -45,9 +45,11 @@ const App: React.FC = () => {
           <Routes>
             <Route path='/' element={<InPrivate><Login/></InPrivate>}/>
             <Route path='/register' element={<InPrivate><Register/></InPrivate>}/>
+            <Route path='/profile/:username' element={ <Private><Profile/></Private> }/>
             <Route path='/feed' element={ <Private><Feed/></Private> }/>
             <Route path='/create/post' element={ <Private><CreatePost/></Private> }/>
             <Route path='/create/guild' element={ <Private><CreateGuild/></Private> }/>
+
           </Routes>
         </AuthContextProvider>
       </BrowserRouter>

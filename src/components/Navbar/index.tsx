@@ -38,6 +38,9 @@ function Navbar() {
                 <NavLink to="/feed">Feed</NavLink>
               </li>
               <li>
+                <NavLink to="/profile/miqueias">Perfil</NavLink>
+              </li>
+              <li>
                 <button onClick={handleLoggout} className="logoutBTN">Sair</button>
               </li>
             </>

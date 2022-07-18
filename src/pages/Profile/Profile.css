@@ -1,0 +1,97 @@
+.profileConttainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.inforOfUserProfile{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.inforContainerProfile{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.userPhotoProfile{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.inforUserProfileContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+.inforUserProfileContainer a{
+    color: var(--green-color800);
+}
+.descProfile{
+    max-width: 400px;
+}
+
+
+.guildInfoProfile{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.guildInfoProfile img {
+    width: 20px;
+    height: 20px;
+    border-radius: 1px 1px 20px 20px;
+
+}
+.scorePointsUser{
+    color: var(--green-color800);
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.followAnUnfollowNumbers{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 10px 0;
+}
+
+.line {
+    width: 100%;
+    height: 3px;
+    background-color: var(--green-color800);
+    margin: 20px 0;
+}
+
+.postsOfUserContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0;
+}
+.postsOfuser{
+    width: 640px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.PostOfUser{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 768px){
+    .postsOfUser {
+        align-items: center;
+        padding: 0px 2px;
+    }
+}
