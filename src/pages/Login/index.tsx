@@ -41,7 +41,7 @@ function Login() {
 
   return (
     <div>
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form containerDark" onSubmit={handleSubmit}>
         <div className='TextForm'>
           <h1>Entrar</h1>
           <span></span>

@@ -36,7 +36,7 @@ const Feed = () => {
                     </div>
                 )}
             </div>
-            <div className="listOfBestguilds">
+            <div className="listOfBestguilds containerDark">
                 <span>Melhores guildas do rank</span>
                 <div className="feedGuildInformations">
                     <div className="guildasInfo">

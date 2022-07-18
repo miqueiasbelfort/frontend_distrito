@@ -64,31 +64,23 @@ a {
     outline: none;
 }
 
+.btnContainerForm{
+    width: 100%;
+    text-align: center;
+}
+
 /*DARK MODE*/
 .dark {
     background-color: #263238;
     color: #fff;
 }
-.dark .navbar {
-   background-color: #3B474E;
-   color: #fff;
-}
 .dark a {
     color: #fff;
-}
-.dark .form {
-    background-color: var(--dark-mode800);
 }
 .dark .logoutBTN{
     color: #fff;
 }
 /*feed*/
-.dark .cardFeed{
-    background-color: var(--dark-mode800);
-}
-.dark .listOfBestguilds{
-    background-color: var(--dark-mode800);
-}
 .dark .containerDark{
     background-color: var(--dark-mode800);
 }

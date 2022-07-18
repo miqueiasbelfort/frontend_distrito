@@ -17,7 +17,7 @@ import {uploads} from "../../utils/config"
 
 const CardPost = ({username, text, userPhoto, image}: IcardFeed) => {
   return (
-    <div className="cardFeed">
+    <div className="cardFeed containerDark">
       <div className="feedUserInformations">
         <img src={userPhoto} alt="prifle" />
         <h3>{username}</h3>

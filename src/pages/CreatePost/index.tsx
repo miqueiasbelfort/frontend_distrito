@@ -11,7 +11,7 @@ const CreatePost = () => {
     const [challenge, setChallenge] = useState<string>("")
     const [guild, setGuild] = useState<string>("")
     const [text, setText] = useState<string>("")
-    const [previewImage, setPreviewImage] = useState<string>("")
+    const [previewImage, setPreviewImage] = useState<any>("")
 
     const handleFile = (e: any) => {
         const image = e.target.files[0]

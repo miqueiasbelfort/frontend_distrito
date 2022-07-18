@@ -36,8 +36,18 @@
     object-fit: cover;
     border-radius: 7px;
 }
+
+.fileChoiceFom input{
+    display: none;
+}
+.formIni{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .fileChoiceFom {
-    width: 100px;
+    width: 20%;
     height: 100px;
     background-color: var(--gray-color);
     border-radius: 7px;
@@ -48,22 +58,13 @@
     font-weight: bold;
     cursor: pointer;
 }
-.fileChoiceFom input{
-    display: none;
-}
-.formIni{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 .selectionContainerPost{
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 70%;
 }
 .selectionLabel{
-    width: 350px;
     display: flex;
     flex-direction: column;
 }
@@ -96,7 +97,11 @@
     height: 100px;
     background-color: var(--gray-color);
 }
-.btnContainerForm{
-    width: 100%;
-    text-align: center;
+@media screen and (max-width: 768px){
+    .createForm{
+        width: 95%;
+    }
+    .titleForm{
+        width: 95%;
+    }
 }

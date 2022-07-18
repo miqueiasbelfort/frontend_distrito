@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import "./Navbar.css"
 
 // Context
@@ -16,6 +16,7 @@ function Navbar() {
 
   const handleTheme = (): void => {
       document.body.classList.toggle("dark")
+      localStorage.setItem("theme", "dark")
       setDark(!dark)
   }
 
@@ -24,12 +25,15 @@ function Navbar() {
   }
 
   return (
-    <nav className='navbar'>
+    <nav className='navbar containerDark'>
       <h1>Distrito</h1>
       <ul>
         {
           user ? (
             <>
+              <li>
+                <NavLink to="/create/guild">Criar Guilda</NavLink>
+              </li>
               <li>
                 <NavLink to="/feed">Feed</NavLink>
               </li>

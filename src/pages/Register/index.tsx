@@ -56,7 +56,7 @@ function Register(){
 
     return (
         <div>
-            <form className="form" onSubmit={handleSubmit}>
+            <form className="form containerDark" onSubmit={handleSubmit}>
                 <div className='TextForm'>
                     <h1>Cadastrar</h1>
                     <span></span>
