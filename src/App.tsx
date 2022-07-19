@@ -17,6 +17,7 @@ import CreatePost from './pages/CreatePost'
 import CreateGuild from './pages/CreateGuild'
 import Profile from "./pages/Profile"
 import Post from "./pages/Post"
+import Guilds from "./pages/Guilds"
 
 // Context
 import { AuthContextProvider, AuthContext } from './context/auth'
@@ -51,6 +52,7 @@ const App: React.FC = () => {
             <Route path="/feed/:id" element={<Private><Post/></Private>} />
             <Route path='/create/post' element={ <Private><CreatePost/></Private> }/>
             <Route path='/create/guild' element={ <Private><CreateGuild/></Private> }/>
+            <Route path='/guilds' element={ <Private><Guilds/></Private> }/>
           </Routes>
         </AuthContextProvider>
       </BrowserRouter>

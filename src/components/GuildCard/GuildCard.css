@@ -1,0 +1,36 @@
+.guildCardContainer {
+    width: 700px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+.guildCardContainer img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.informationOfGuildContainer{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.scoreGuildCard{
+    color: var(--green-color800);
+    font-weight: 300;
+}
+
+@media screen and (max-width: 768px){
+    .guildCardContainer {
+        width: 95%;
+        flex-direction: column;
+    }
+    .informationOfGuildContainer{
+        flex-direction: column;
+        text-align: center;
+    }
+}

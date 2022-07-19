@@ -1,3 +1,9 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .inforPostContainer{
     display: flex;
     flex-direction: column;
@@ -125,4 +131,25 @@
     flex-direction: column;
     gap: 20px;
     margin-bottom: 50px;
+}
+
+@media screen and (max-width: 768px){
+    .infoUserPost{
+        width: 95%;
+    }
+    .whereIsTheChallenge{
+        width: 95%;
+    }
+    .postImagePost{
+        width: 95%;
+    }
+    .textOfPost{
+        width: 95%;
+    }
+    .actionsOfPost{
+        width: 95%;
+    }
+    .btnContainer{
+        width: 95%;
+    }
 }

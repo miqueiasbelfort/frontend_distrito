@@ -26,7 +26,7 @@ const Post = () => {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <div className={styles.inforPostContainer}>
                 <div className={styles.infoUserPost}>
                     <img src={ImageUser} alt="userphoto"  className={styles.userPhotoOfPost}/>
@@ -40,6 +40,7 @@ const Post = () => {
                     </div>
                 </div>
                 <p className={styles.textOfPost}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi provident nobis quis! Molestiae est deserunt nostrum, eaque eveniet exercitationem quidem at, similique totam blanditiis, sint minima atque in ad doloribus.</p>
+                <a href="">http://miqueiasbelfort.netlify.app/</a>
                 <img src={ImageUser} alt="post img" className={styles.postImagePost}/>
                 <div className={styles.actionsOfPost}>
                     <button 
