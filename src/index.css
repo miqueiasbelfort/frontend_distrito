@@ -86,6 +86,21 @@ a {
     background-color: #006403;
 }
 
+/*comment post*/
+.commentForm{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+.commentForm input {
+    width: 500px;
+    border: none;
+    padding: 2px;
+    outline: none;
+    border-bottom: 2px solid #ccc;
+    background-color: transparent;
+}
+
 /*DARK MODE*/
 .dark {
     background-color: #263238;
@@ -100,6 +115,9 @@ a {
 /*feed*/
 .dark .containerDark{
     background-color: var(--dark-mode800);
+}
+.dark .commentForm input {
+    color: #fff;
 }
 
 :root {

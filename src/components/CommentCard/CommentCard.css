@@ -1,0 +1,23 @@
+.commentCard{
+    width: 500px;
+    padding: 5px;
+    border-radius: 7px;
+    box-shadow: 3px 4px 4px 0px #00000040;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.inforCommenterUser{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.inforCommenterUser img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.commentCard p {
+    max-width: 100%;
+}

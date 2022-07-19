@@ -42,7 +42,6 @@ const Profile = () => {
                     <img src={Imag} alt="imagepost" className="PostOfUser"/>
                     <img src={Imag} alt="imagepost" className="PostOfUser"/>
                     <img src={Imag} alt="imagepost" className="PostOfUser"/>
-                    <img src={Imag} alt="imagepost" className="PostOfUser"/>
                 </div>
             </div>
 

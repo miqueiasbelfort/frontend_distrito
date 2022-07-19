@@ -32,6 +32,9 @@
 .inforUserProfileContainer a{
     color: var(--green-color800);
 }
+.dark .inforUserProfileContainer a {
+    color: var(--green-color800);
+}
 .descProfile{
     max-width: 400px;
 }
@@ -89,9 +92,30 @@
     cursor: pointer;
 }
 
-@media screen and (min-width: 768px){
+@media screen and (max-width: 768px){
     .postsOfUser {
-        align-items: center;
-        padding: 0px 2px;
+        justify-content: center;
+    }
+    .inforContainerProfile{
+        flex-direction: column;
+    }
+    .inforUserProfileContainer{
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+    .descProfile{
+        max-width: 97%;
+    }
+    .guildInfoProfile{
+        justify-content: center;
+    }
+    .postsOfuser{
+        width: 95%;
+        justify-content: center;
+    }
+    .PostOfUser {
+        width: 150px;
+        height: 150px;
     }
 }

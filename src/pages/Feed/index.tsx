@@ -45,7 +45,7 @@ const Feed = () => {
                     </div>
                     <span>250 checks</span>
                 </div>
-                <Link className="seeMoreGuildFeed" to="/feed">Ver mais...</Link>
+                <Link className="seeMoreGuildFeed" to="/feed/124545">Ver mais...</Link>
             </div>
         </div>
     )
