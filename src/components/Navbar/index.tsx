@@ -32,6 +32,9 @@ function Navbar() {
           user ? (
             <>
               <li>
+                <NavLink to="/challenges">Desafios</NavLink>
+              </li>
+              <li>
                 <NavLink to="/create/guild">Criar Guilda</NavLink>
               </li>
               <li>

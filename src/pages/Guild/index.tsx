@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Guild.module.css"
 
 import Img from "../../assets/04.jpg"
+import { Link } from "react-router-dom";
 
 const Guild = () => {
     return (
@@ -30,8 +31,11 @@ const Guild = () => {
             <h1>Desafios</h1>
             <div className={`${styles.challengesContainer} containerDark`}>
                 <div className={styles.challenge}>
-                    <h2>Criar uma plicação full stack</h2>
+                    <Link to="/challenges"><h2>Criar uma plicação full stack</h2></Link>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea quis qui aliquam vero rerum iste eveniet ad accusamus officiis magni? Quas aut eligendi saepe. Totam iure nostrum dignissimos reprehenderit sapiente!</p>
+                    <div className={styles.buttonContainer}>
+                        <button className="button">Aceitar Desafio</button>
+                    </div>
                 </div>
             </div>
         </div>
