@@ -30,34 +30,48 @@ function Navbar() {
 
   return (
     <nav className='navbar containerDark'>
-      <h1 className='logo'>Distrito</h1>
+      <NavLink to="/feed"><h1 className='logo'>Distrito</h1></NavLink>
       <ul>
         {
           user ? (
             <>
               <li>
-                <NavLink to="/challenges"><FaCode/></NavLink>
+                <NavLink
+                  className={({isActive}) => (isActive ? "navbarActive" : "")} 
+                  to="/challenges"><FaCode/></NavLink>
               </li>
               <li>
-                <NavLink to="/create/guild"><IoCreateSharp/></NavLink>
+                <NavLink
+                  className={({isActive}) => (isActive ? "navbarActive" : "")} 
+                  to="/create/guild"><IoCreateSharp/></NavLink>
               </li>
               <li>
-                <NavLink to="/feed"><BiWorld/></NavLink>
+                <NavLink
+                  className={({isActive}) => (isActive ? "navbarActive" : "")} 
+                  to="/feed"><BiWorld/></NavLink>
               </li>
               <li>
-                <NavLink to="/guilds"><HiUserGroup/></NavLink>
+                <NavLink 
+                  className={({isActive}) => (isActive ? "navbarActive" : "")}
+                  to="/guilds"><HiUserGroup/></NavLink>
               </li>
               <li>
-                <NavLink to="/profile/miqueias"><FaUserCircle/></NavLink>
+                <NavLink 
+                  className={({isActive}) => (isActive ? "navbarActive" : "")}
+                  to="/profile/miqueias"><FaUserCircle/></NavLink>
               </li>
             </>
           ) : (
             <>
               <li>
-                <NavLink to="/register">Cadastrar</NavLink>
+                <NavLink 
+                  className={({isActive}) => (isActive ? "navbarActive" : "")}
+                  to="/register">Cadastrar</NavLink>
               </li>
               <li>
-                  <NavLink to="/">Entrar</NavLink>
+                  <NavLink 
+                    className={({isActive}) => (isActive ? "navbarActive" : "")}
+                    to="/">Entrar</NavLink>
               </li>
             </>
           )

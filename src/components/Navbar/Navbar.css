@@ -37,6 +37,13 @@
     cursor: pointer;
 }
 
+.navbarActive{
+    color: var(--green-color800);
+}
+.dark .navbarActive {
+    color: #78f900;
+}
+
 /*MOBILE*/
 @media screen and (max-width: 768px){
     .navbar {
