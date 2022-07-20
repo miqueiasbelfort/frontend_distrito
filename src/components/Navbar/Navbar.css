@@ -41,5 +41,9 @@
 @media screen and (max-width: 768px){
     .navbar {
         padding: 0 1em;
+        justify-content: center;
+    }
+    .logo{
+        display: none;
     }
 }

@@ -7,6 +7,10 @@ import {AuthContext} from "../../context/auth"
 // Components
 import {NavLink} from "react-router-dom"
 import {GiMoonBats, GiSunCloud} from "react-icons/gi"
+import {BiWorld} from "react-icons/bi"
+import {HiUserGroup} from "react-icons/hi"
+import {FaUserCircle, FaCode} from "react-icons/fa"
+import {IoCreateSharp} from "react-icons/io5"
 
 function Navbar() {
 
@@ -16,7 +20,7 @@ function Navbar() {
 
   const handleTheme = (): void => {
       document.body.classList.toggle("dark")
-      localStorage.setItem("theme", "dark")
+      //localStorage.setItem("theme", "dark")
       setDark(!dark)
   }
 
@@ -26,28 +30,25 @@ function Navbar() {
 
   return (
     <nav className='navbar containerDark'>
-      <h1>Distrito</h1>
+      <h1 className='logo'>Distrito</h1>
       <ul>
         {
           user ? (
             <>
               <li>
-                <NavLink to="/challenges">Desafios</NavLink>
+                <NavLink to="/challenges"><FaCode/></NavLink>
               </li>
               <li>
-                <NavLink to="/create/guild">Criar Guilda</NavLink>
+                <NavLink to="/create/guild"><IoCreateSharp/></NavLink>
               </li>
               <li>
-                <NavLink to="/feed">Feed</NavLink>
+                <NavLink to="/feed"><BiWorld/></NavLink>
               </li>
               <li>
-                <NavLink to="/guilds">Guildas</NavLink>
+                <NavLink to="/guilds"><HiUserGroup/></NavLink>
               </li>
               <li>
-                <NavLink to="/profile/miqueias">Perfil</NavLink>
-              </li>
-              <li>
-                <button onClick={handleLoggout} className="logoutBTN">Sair</button>
+                <NavLink to="/profile/miqueias"><FaUserCircle/></NavLink>
               </li>
             </>
           ) : (
@@ -76,6 +77,11 @@ function Navbar() {
                 )
             }
         </li>
+        {user && (
+          <li>
+            <button onClick={handleLoggout} className="logoutBTN">Sair</button>
+          </li>
+        )}
       </ul>
     </nav>
   )
