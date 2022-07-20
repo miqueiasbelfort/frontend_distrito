@@ -1,0 +1,137 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2em 0;
+}
+.container h1 {
+  margin: 20px 0 7px 0;
+}
+.guildinformations {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.guildphoto {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 1px 1px 40px 40px;
+}
+.informationsGuildText {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+.score {
+  font-weight: 300;
+  color: var(--green-color800);
+}
+.informationsGuildText a {
+  color: var(--green-color800);
+}
+
+.membersContainer {
+  width: 600px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  margin: 2em 0;
+  border-radius: 10px;
+  margin-top: -7px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  overflow-x: auto;
+}
+
+.membersContainer::-webkit-scrollbar {
+  height: 3px; 
+}
+
+.membersContainer::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 0 10px;
+}
+
+.membersContainer::-webkit-scrollbar-thumb {
+  background-color: var(--green-color800);
+  border-radius: 20px;
+  margin-left: 20px;
+}
+
+.userCard {
+  width: 200px;
+  padding: 10px;
+  border-radius: 7px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.userCard img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.infouser {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.infouser span {
+  font-weight: 300;
+  color: var(--green-color800);
+}
+
+.challengesContainer{
+    width: 700px;
+    height: 400px;
+    padding: 20px 10px;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    border-radius: 10px;
+    overflow-y: auto;
+    margin-top: -7px;
+}
+
+.challengesContainer::-webkit-scrollbar {
+    width: 3px;
+}
+
+.challengesContainer::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 10px 0;
+}
+
+.challengesContainer::-webkit-scrollbar-thumb {
+    background-color: var(--green-color800);
+    border-radius: 20px;
+    margin-left: 20px;
+}
+
+.challenge {
+  padding: 10px;
+  border-radius: 7px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+.challenge h2 {
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 768px){
+  .guildinformations{
+    flex-direction: column;
+  }
+  .informationsGuildText,
+  .membersContainer,
+  .challengesContainer{
+    width: 95%;
+  }
+}
