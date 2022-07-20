@@ -30,13 +30,13 @@ export const AuthContextProvider = ({children}: authContextProps) => {
         //console.log(response)
 
         const token = response.data.token
-        const userID = response.data.userId
+        const user = response.data.user
 
 
         setUser(true)
 
         localStorage.setItem("token", token)
-        localStorage.setItem("user", userID)
+        localStorage.setItem("user", user)
 
         api.defaults.headers.Authorization = `Bearer ${token}`
 
@@ -47,12 +47,12 @@ export const AuthContextProvider = ({children}: authContextProps) => {
 
         const response = await loginUser(email, password)
         const token = response.data.token
-        const userID = response.data.userId
+        const user = response.data.user
 
         setUser(true)
 
         localStorage.setItem("token", token)
-        localStorage.setItem("user", userID)
+        localStorage.setItem("user", user)
 
         api.defaults.headers.Authorization = `Bearer ${token}`
 
@@ -64,7 +64,7 @@ export const AuthContextProvider = ({children}: authContextProps) => {
         setUser(false)
         localStorage.removeItem("token")
         localStorage.removeItem("user")
-        api.defaults.headers.Authorization = null
+        api.defaults.headers.Authorization = undefined
         navigate("/")
     }
 

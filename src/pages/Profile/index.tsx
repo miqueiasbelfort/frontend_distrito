@@ -1,17 +1,43 @@
-import React from "react"
+import React,{ useEffect, useState } from "react"
 import "./Profile.css"
 import Imag from "../../assets/04.jpg"
 
+// utils
+import {api} from "../../services/api"
+
+
 const Profile = () => {
+    
+    const [token] = useState<any>(localStorage.getItem("token") || "")
+    const [userLocal] = useState<any>(localStorage.getItem("user"))
+    const [user, setUser] = useState<any>()
+    const [posts, setPosts] = useState<any>()
+
+    useEffect(() => {
+        api.get(`/users/${userLocal}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => {
+            setUser(res.data.user)
+            setPosts(res.data.posts)
+        })
+
+    }, [token])
+
+    const handleClick = () => {
+        console.log(user)
+    }
+
     return (
         <div className="profileConttainer">
             <div className="inforOfUserProfile">
                 <div className="inforContainerProfile">
                     <img src={Imag} alt="userphoto" className="userPhotoProfile"/>
                     <div className="inforUserProfileContainer">
-                        <h2 className="usernameProfile">Username</h2>
-                        <a className="linkProfile" href="">http://miqueiasbelofort.netfly.app</a>
-                        <p className="descProfile">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit mollitia vero impedit. Dolore cum dolor dolorem eveniet libero sunt, atque excepturi possimus provident ex, recusandae voluptatem minus labore unde cumque?</p>
+                        <h2 className="usernameProfile">user.username</h2>
+                        <a className="linkProfile" href="{user.link}">user.link</a>
+                        <p className="descProfile">user.bio</p>
                         <div className="guildInfoProfile">
                             <img src={Imag} alt="guildImage" />
                             <h2>CODE_WIN</h2>
@@ -22,12 +48,12 @@ const Profile = () => {
                 </div>
 
                 <div className="followAnUnfollowNumbers">
-                    <span>124 seguidores</span>
+                    <span>user.followings.length seguidores</span>
                     <span>-</span>
-                    <span>215 seguindo</span>
+                    <span>user.followers.length seguindo</span>
                 </div>
             </div>
-            <button className="button">Seguir</button>
+            <button className="button" onClick={handleClick}>Seguir</button>
         
             <span className="line"></span>
 
