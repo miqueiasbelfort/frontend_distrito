@@ -14,6 +14,7 @@ export const AuthContextProvider = ({children}: authContextProps) => {
 
     const [user, setUser] = useState<any>()
     const [loading, setLoading] = useState<boolean>(true)
+    const [error, setError] = useState<any>()
 
     useEffect(() => {
         const recoveredUserID = localStorage.getItem("user")
@@ -32,7 +33,6 @@ export const AuthContextProvider = ({children}: authContextProps) => {
         const token = response.data.token
         const user = response.data.user
 
-
         setUser(true)
 
         localStorage.setItem("token", token)
@@ -46,9 +46,12 @@ export const AuthContextProvider = ({children}: authContextProps) => {
     const login = async (email: string, password: string) => {
 
         const response = await loginUser(email, password)
+
         const token = response.data.token
         const user = response.data.user
+        const error = response.data.error
 
+        setError(error)
         setUser(true)
 
         localStorage.setItem("token", token)
@@ -75,7 +78,8 @@ export const AuthContextProvider = ({children}: authContextProps) => {
                 user,
                 register,
                 login,
-                logout
+                logout,
+                error
             }}
         > {children} </AuthContext.Provider>
     )

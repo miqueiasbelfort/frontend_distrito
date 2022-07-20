@@ -10,7 +10,7 @@ import {AuthContext} from "../../context/auth"
 
 function Login() {
 
-  const {login, loading} = useContext(AuthContext)
+  const {login, loading, error} = useContext(AuthContext)
 
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
@@ -21,6 +21,7 @@ function Login() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     // API
+    console.log(error)
     login(email, password)
   }
 

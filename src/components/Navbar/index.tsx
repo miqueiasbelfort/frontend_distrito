@@ -15,6 +15,7 @@ import {IoCreateSharp} from "react-icons/io5"
 function Navbar() {
 
   const {logout, user} = useContext(AuthContext)
+  const userLocal = localStorage.getItem("user")
 
     const [dark, setDark] = useState<boolean>(true)
 
@@ -58,7 +59,7 @@ function Navbar() {
               <li>
                 <NavLink 
                   className={({isActive}) => (isActive ? "navbarActive" : "")}
-                  to="/profile/miqueias"><FaUserCircle/></NavLink>
+                  to={`/profile/${userLocal}`}><FaUserCircle/></NavLink>
               </li>
             </>
           ) : (
