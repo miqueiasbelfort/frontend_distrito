@@ -54,7 +54,7 @@ const Profile = () => {
                         <div className="guildInfoProfile">
                             {user?.guild && (
                                 <>
-                                    <img src={`${uploads}/images/users/${user?.guildphoto}`} alt="guildImage" />
+                                    <img src={`${uploads}/images/users/${user?.guildPhoto}`} alt="guildImage" />
                                     <h2>CODE_WIN</h2>
                                     <span>-</span>
                                 </>

@@ -16,6 +16,7 @@ import Feed from "./pages/Feed"
 import CreatePost from './pages/CreatePost'
 import CreateGuild from './pages/CreateGuild'
 import Profile from "./pages/Profile"
+import EditUser from './pages/EditUser'
 import Post from "./pages/Post"
 import Guilds from "./pages/Guilds"
 import Guild from "./pages/Guild"
@@ -50,6 +51,7 @@ const App: React.FC = () => {
             <Route path='/' element={<InPrivate><Login/></InPrivate>}/>
             <Route path='/register' element={<InPrivate><Register/></InPrivate>}/>
             <Route path='/profile/:username' element={ <Private><Profile/></Private> }/>
+            <Route path="/profile/edit" element={<Private><EditUser/></Private>}/>
             <Route path='/feed' element={ <Private><Feed/></Private> }/>
             <Route path="/feed/:id" element={<Private><Post/></Private>} />
             <Route path='/create/post' element={ <Private><CreatePost/></Private> }/>
