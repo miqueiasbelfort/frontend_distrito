@@ -1,20 +1,50 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styles from "./Guild.module.css"
 
 import Img from "../../assets/04.jpg"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { api } from "../../services/api";
+import { uploads } from "../../utils/config";
 
 const Guild = () => {
+
+    const [token] = useState<any>(localStorage.getItem("token") || "")
+    const {id} = useParams()
+
+    const [guild, setGuild] = useState<any>([])
+    const [membersLenght, setMembersLength] = useState([])
+
+    const [loading, setLoading] = useState<boolean>(true)
+
+    useEffect(() => {
+
+        api.get(`/guilds/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => {
+            setGuild(res.data)
+            setMembersLength(res.data?.members)
+        })
+
+        setLoading(false)
+
+    }, [id])
+
+    if(loading){
+        return <h1>Carregando...</h1>
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.guildinformations}>
-                <img src={Img} alt="guild image" className={styles.guildphoto}/>
+                <img src={`${uploads}/images/guilds/${guild?.guildPhoto}`} alt={guild?.guildname} className={styles.guildphoto}/>
                 <div className={styles.informationsGuildText}>
-                    <h2>Code_Win - <span className={styles.score}>4578 score</span></h2>
-                    <a href="">http://codewin.com.br</a>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores dolore qui error fugiat neque ipsam sapiente repudiandae, voluptates impedit minus, vel quod nam commodi rem ullam magni, eveniet veritatis adipisci!</p>
+                    <h2>{guild?.guildname} - <span className={styles.score}>{guild?.score} score</span></h2>
+                    <a href={guild?.link}>{guild?.link}</a>
+                    <p>{guild?.description}</p>
                     <div>
-                        <span>145 membros</span>
+                        <span>{membersLenght.length} {membersLenght.length > 1 || membersLenght.length == 0 ? <span>Membros</span> : <span>Membro</span>}</span>
                     </div>
                 </div>
             </div>

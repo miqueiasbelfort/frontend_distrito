@@ -1,25 +1,25 @@
 import React,{ useEffect, useState } from "react"
 import "./Profile.css"
-import Imag from "../../assets/04.jpg"
 
-// utils
+// components
 import {api} from "../../services/api"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 
+//utils
+import {uploads} from "../../utils/config"
 
 const Profile = () => {
     
     const [token] = useState<any>(localStorage.getItem("token") || "")
     const [user, setUser] = useState<any>()
-    const [posts, setPosts] = useState<any>()
+    const [posts, setPosts] = useState([])
 
     const {username} = useParams()
     const userLocalStorege = localStorage.getItem("user")
 
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
-        setLoading(true)
         
         api.get(`/users/${username}`,{
             headers: {
@@ -41,11 +41,12 @@ const Profile = () => {
         return <h1>Carregando...</h1>
     }
 
+
     return (
         <div className="profileConttainer">
             <div className="inforOfUserProfile">
                 <div className="inforContainerProfile">
-                    <img src={Imag} alt="userphoto" className="userPhotoProfile"/>
+                    <img src={`${uploads}/images/users/${user?.userPhoto}`} alt="userphoto" className="userPhotoProfile"/>
                     <div className="inforUserProfileContainer">
                         <h2 className="usernameProfile">{user?.username}</h2>
                         <a className="linkProfile" href={user?.link}>{user?.link}</a>
@@ -53,7 +54,7 @@ const Profile = () => {
                         <div className="guildInfoProfile">
                             {user?.guild && (
                                 <>
-                                    <img src={Imag} alt="guildImage" />
+                                    <img src={`${uploads}/images/users/${user?.guildphoto}`} alt="guildImage" />
                                     <h2>CODE_WIN</h2>
                                     <span>-</span>
                                 </>
@@ -69,7 +70,11 @@ const Profile = () => {
                     <span>{user?.followers.length} seguindo</span>
                 </div>
             </div>
-            {user?.username !== userLocalStorege && <button className="button" onClick={handleClick}>Seguir</button>}
+            {user?.username !== userLocalStorege ? <button className="button" onClick={handleClick}>Seguir</button> : (
+                <>
+                    <span><Link to="/profile/edit">Editar Perfil</Link></span>
+                </>
+            )}
         
             <span className="line"></span>
 
@@ -77,7 +82,16 @@ const Profile = () => {
 
             <div className="postsOfUserContainer">
                 <div className="postsOfuser">
-                    <img src={Imag} alt="imagepost" className="PostOfUser"/>
+                    {posts ? posts.map((post: any) => (
+                        <Link to={`/feed/${post?._id}`}>
+                            <img src={post?.postPhoto} alt="imagepost" className="PostOfUser"/>
+                        </Link>
+                    )) : (
+                        <div className="dontHavePostsContainer">
+                            <h1>Você ainda não tempublicações</h1>
+                            <Link to="/challenges">Primeiro desafio!</Link>
+                        </div>
+                    )}
                 </div>
             </div>
 

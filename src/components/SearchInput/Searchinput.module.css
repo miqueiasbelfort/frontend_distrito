@@ -1,0 +1,39 @@
+.container {
+    width: 400px;
+    height: 40px;
+    padding: 0 0px 0 10px;
+    background-color: #fff;
+    border-bottom: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+.container input {
+    width: 90%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+.iconContainer{
+    width: 10%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    border-radius: 0 7px 7px 0;
+    color: var(--green-color800);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    transition: .3s;
+}
+.iconContainer:hover,
+.iconContainer:focus {
+    background-color: var(--green-color800);
+    color: #fff;
+    border-bottom: 2px solid var(--green-color800);
+}

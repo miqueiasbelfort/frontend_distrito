@@ -78,8 +78,7 @@ export const AuthContextProvider = ({children}: authContextProps) => {
                 user,
                 register,
                 login,
-                logout,
-                error
+                logout
             }}
         > {children} </AuthContext.Provider>
     )
