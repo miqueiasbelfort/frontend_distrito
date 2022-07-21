@@ -14,7 +14,7 @@ import {IoCreateSharp} from "react-icons/io5"
 
 function Navbar() {
 
-  const {logout, user} = useContext(AuthContext)
+  const {logout, user, username} = useContext(AuthContext)
   const userLocal = localStorage.getItem("user")
 
     const [dark, setDark] = useState<boolean>(true)

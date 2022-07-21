@@ -1,51 +1,51 @@
-import React, {useState, FormEvent, useEffect} from "react";
+import React, {useState, FormEvent, useEffect, useContext} from "react";
 import styles from "./EditUser.module.css"
 
 import { api } from "../../services/api";
 import { uploads } from "../../utils/config";
+import {AuthContext} from "../../context/auth"
 
 // components
 import Button from "../../components/Button"
-import Img from "../../assets/04.jpg"
 
 const EditUser = () => {
 
+    const { setUsername: SetUserName, username: userName } = useContext(AuthContext)
+
     const [token] = useState(localStorage.getItem("token"))
-    const [userEditPassword, setUserEditPassowrd] = useState<boolean>(true)
     const [loading, setLoading] = useState<boolean>(true)
 
     const [file, setFile] = useState()
     const [username, setUsername] = useState<string>("")
     const [link, setLink] = useState<string>("")
     const [bio, setBio] = useState<string>("")
-    const [password, setPassword] = useState<string>("")
-    const [confirPassword, setConfirPassword] = useState<string>("")
 
     const [user, setUser] = useState<any>([])
 
     useEffect(() => {
 
-        api.post("/users", {
+
+        api.get(`/users/${localStorage.getItem("user")}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then(res => {
-            setUser(res.data)
+            setUser(res.data.user)
+            console.log(res.data)
         })
+
+        setLoading(false)
 
     }, [])
 
-    const changePasswordConfirm = () => {
-        setUserEditPassowrd(false)
-    }
-    const fileOnChange = (e: FormEvent<HTMLFormElement>) => {
+    const fileOnChange = (e: FormEvent<HTMLFormElement>): void => {
         setFile(e.target.files[0])
     }   
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         api.patch("/users/edit", {
-            file,
+            userPhoto: file,
             username,
             link,
             bio,
@@ -57,6 +57,12 @@ const EditUser = () => {
         }).then(res => {
             localStorage.setItem("user", username.toLowerCase())
         })
+
+        SetUserName(username)
+    }
+
+    if(loading) {
+        return <h1>Carregando...</h1>
     }
 
     return (
@@ -68,7 +74,7 @@ const EditUser = () => {
             <form onSubmit={handleSubmit} className={`${styles.formContainer} containerDark`}>
                 <div className={styles.imageContainerFile}>
                     <label className={styles.labelContainer}>
-                        <img src={`${uploads}/images/${user?.userPhoto}`} alt="" />
+                        <img src={`${uploads}/images/users/${user?.userPhoto}`} alt={user?.usename} />
                         <input type="file" onChange={fileOnChange}/>
                     </label>
                 </div>
@@ -78,7 +84,7 @@ const EditUser = () => {
                     placeholder="Nome de usuário"
                     id="username"
                     onChange={e => setUsername(e.target.value)}
-                    value={username || ""}
+                    value={user?.username || ""}
                 />
                 <label htmlFor="link">Link:</label>
                 <input 
@@ -86,7 +92,7 @@ const EditUser = () => {
                     placeholder="Link"
                     id="link"
                     onChange={e => setLink(e.target.value)}
-                    value={link || ""}
+                    value={user?.link || ""}
                  />
 
                 <label htmlFor="bio">Sua Biografia:</label>
@@ -94,33 +100,8 @@ const EditUser = () => {
                     placeholder="Sua Biografia"
                     id="bio"
                     onChange={e => setBio(e.target.value)}
-                    value={bio || ""}
+                    value={user?.bio || ""}
                 ></textarea>
-                {
-                    userEditPassword ? (
-                        <div className={styles.editPasswordContainer}>
-                            <span onClick={changePasswordConfirm}>Editar Senha</span>
-                        </div>
-                    ) : (
-                        <>
-                            <label htmlFor="password">Nova Senha:</label>
-                            <input 
-                                type="text"
-                                placeholder="Nova Senha"
-                                onChange={e => setPassword(e.target.value)}
-                                value={user?.password || ""}
-                            />
-
-                            <label htmlFor="confirmPassowrd">Confirma Nova Senha:</label>
-                            <input 
-                                type="text"
-                                placeholder="Confirma Nova Senha"
-                                onChange={e => setConfirPassword(e.target.value)}
-                                value={confirPassword || ""}
-                            />
-                        </>
-                    )
-                }
                 <Button
                     type="submit"
                     textBtn="Editar"
