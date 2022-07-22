@@ -3,6 +3,7 @@ import "./Navbar.css"
 
 // Context
 import {AuthContext} from "../../context/auth"
+import { api } from '../../services/api'
 
 // Components
 import {NavLink} from "react-router-dom"
@@ -14,10 +15,24 @@ import {IoCreateSharp} from "react-icons/io5"
 
 function Navbar() {
 
-  const {logout, user, username} = useContext(AuthContext)
+  const {logout, user} = useContext(AuthContext)
   const userLocal = localStorage.getItem("user")
+  const [token] = useState(localStorage.getItem("token"))
+  const [username, setUsername] = useState<string>("")
 
     const [dark, setDark] = useState<boolean>(true)
+
+    useEffect(() => {
+
+      api.get("/users", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(res => {
+        setUsername(res.data.username)
+      })
+
+     }, [userLocal])
 
   const handleTheme = (): void => {
       document.body.classList.toggle("dark")

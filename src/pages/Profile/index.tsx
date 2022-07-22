@@ -46,7 +46,7 @@ const Profile = () => {
         <div className="profileConttainer">
             <div className="inforOfUserProfile">
                 <div className="inforContainerProfile">
-                    <img src={`${uploads}/images/users/${user?.userPhoto}`} alt="userphoto" className="userPhotoProfile"/>
+                    <img src={`${uploads}/images/users/${user?.userPhoto}`} alt={user?.username} className="userPhotoProfile"/>
                     <div className="inforUserProfileContainer">
                         <h2 className="usernameProfile">{user?.username}</h2>
                         <a className="linkProfile" href={user?.link}>{user?.link}</a>
@@ -54,8 +54,8 @@ const Profile = () => {
                         <div className="guildInfoProfile">
                             {user?.guild && (
                                 <>
-                                    <img src={`${uploads}/images/users/${user?.guildPhoto}`} alt="guildImage" />
-                                    <h2>CODE_WIN</h2>
+                                    <img src={`${uploads}/images/users/${user?.guildPhoto}`} alt={user?.guild} />
+                                    <Link to={`/guilds/${user?.guildLink}`}><h2>{user?.guild}</h2></Link>
                                     <span>-</span>
                                 </>
                             )}

@@ -7,8 +7,11 @@ import {AuthContext} from "../../context/auth"
 
 // components
 import Button from "../../components/Button"
+import { useNavigate } from "react-router-dom";
 
 const EditUser = () => {
+
+    const navigate = useNavigate()
 
     const { setUsername: SetUserName, username: userName } = useContext(AuthContext)
 
@@ -31,7 +34,9 @@ const EditUser = () => {
             }
         }).then(res => {
             setUser(res.data.user)
-            console.log(res.data)
+            setBio(res.data.user.bio)
+            setLink(res.data.user.link)
+            setUsername(res.data.user.username)
         })
 
         setLoading(false)
@@ -56,6 +61,9 @@ const EditUser = () => {
             }
         }).then(res => {
             localStorage.setItem("user", username.toLowerCase())
+            setTimeout(() => {
+                navigate(`/profile/${username}`)
+            }, 2000)
         })
 
         SetUserName(username)
@@ -84,7 +92,7 @@ const EditUser = () => {
                     placeholder="Nome de usuário"
                     id="username"
                     onChange={e => setUsername(e.target.value)}
-                    value={user?.username || ""}
+                    value={username || ""}
                 />
                 <label htmlFor="link">Link:</label>
                 <input 
@@ -92,7 +100,7 @@ const EditUser = () => {
                     placeholder="Link"
                     id="link"
                     onChange={e => setLink(e.target.value)}
-                    value={user?.link || ""}
+                    value={link || ""}
                  />
 
                 <label htmlFor="bio">Sua Biografia:</label>
@@ -100,7 +108,7 @@ const EditUser = () => {
                     placeholder="Sua Biografia"
                     id="bio"
                     onChange={e => setBio(e.target.value)}
-                    value={user?.bio || ""}
+                    value={bio || ""}
                 ></textarea>
                 <Button
                     type="submit"
