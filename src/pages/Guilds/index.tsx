@@ -10,7 +10,9 @@ import SearchInput from "../../components/SearchInput"
 const Guilds = () => {
 
     const [token] = useState<any>(localStorage.getItem("token") || "")
+    const UserName = localStorage.getItem("user")
     const [guilds, setGuilds] = useState([])
+    const [user, setUser] = useState<any>()
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -22,9 +24,28 @@ const Guilds = () => {
         }).then(res => {
             setGuilds(res.data)
         })
+
+        api.get("/users", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => {
+            setUser(res.data)
+        })
+
         setLoading(false)
 
     }, [])
+
+    const handlePermission = (guild: string): void => {
+        api.post(`/guilds/permission/${UserName}/guild/${guild}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(() => console.log(user)).catch(err => {
+            console.log(err)
+        })
+    }
 
     if(loading){
         return <h1>Carregando...</h1>
@@ -39,14 +60,30 @@ const Guilds = () => {
             {
                 guilds && guilds.map((guild: any) => (
                     <>
-                        <GuildCard
-                            key={guild?._id}
-                            image={guild?.guildPhoto}
-                            name={guild?.guildname}
-                            score={guild?.score}
-                            desc={guild?.warcry}
-                            link={guild?._id}
-                        />
+                        {
+                            user?.guild !== guild.guildname ? (
+                                <GuildCard
+                                    key={guild?._id}
+                                    image={guild?.guildPhoto}
+                                    name={guild?.guildname}
+                                    score={guild?.score}
+                                    desc={guild?.warcry}
+                                    link={guild?._id}
+                                    permission={() => handlePermission(guild?._id)}
+                                />
+                            ) : (
+                                <GuildCard
+                                    key={guild?._id}
+                                    image={guild?.guildPhoto}
+                                    name={guild?.guildname}
+                                    score={guild?.score}
+                                    desc={guild?.warcry}
+                                    link={guild?._id}
+                                    isMember={true}
+                                    permission={() => {}}
+                                />
+                            )
+                        }
                     </>
                 ))
             }

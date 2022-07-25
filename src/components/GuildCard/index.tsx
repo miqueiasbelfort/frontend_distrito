@@ -4,16 +4,18 @@ import "./GuildCard.css"
 import {uploads} from "../../utils/config"
 
 interface Props {
-    image: string,
-    name: string,
-    score: number,
-    desc: string,
-    link?: string
+    image?: string,
+    name?: string,
+    score?: number,
+    desc?: string,
+    link?: string,
+    permission?: () => void,
+    isMember?: boolean
 }
 
 import { Link } from "react-router-dom";
 
-const GuildCard = ({image, name, score, desc, link}:Props) => {
+const GuildCard = ({image, name, score, desc, link, permission, isMember}:Props) => {
     return (
         <div className="guildCardContainer containerDark">
             <div className="informationOfGuildContainer">
@@ -23,7 +25,18 @@ const GuildCard = ({image, name, score, desc, link}:Props) => {
                     <p>{desc}</p>
                 </div>
             </div>
-            <button className="button">Solicitar Entrada</button>
+            {isMember ? (
+                <div className="userIsMember">
+                    <h3>Você já faz parte da guilda!</h3>
+                </div>
+            ) : (
+                <button 
+                    className="button"
+                    onClick={permission}
+                >
+                    Solicitar Entrada
+                </button>
+            )}
         </div>
     )
 }
