@@ -54,8 +54,8 @@ const Profile = () => {
                         <div className="guildInfoProfile">
                             {user?.guild && (
                                 <>
-                                    <img src={`${uploads}/images/users/${user?.guildPhoto}`} alt={user?.guild} />
-                                    <Link to={`/guilds/${user?.guildLink}`}><h2>{user?.guild}</h2></Link>
+                                    <img src={`${uploads}/images/guilds/${user?.guildPhoto}`} alt={user?.guild} />
+                                    <Link to={`/guilds/${user?.guild}`}><h2>{user?.guild}</h2></Link>
                                     <span>-</span>
                                 </>
                             )}

@@ -68,8 +68,8 @@ const Guilds = () => {
                                     name={guild?.guildname}
                                     score={guild?.score}
                                     desc={guild?.warcry}
-                                    link={guild?._id}
                                     permission={() => handlePermission(guild?._id)}
+                                    isGuildMaster={guild?.userName === user?.username}
                                 />
                             ) : (
                                 <GuildCard
@@ -78,7 +78,6 @@ const Guilds = () => {
                                     name={guild?.guildname}
                                     score={guild?.score}
                                     desc={guild?.warcry}
-                                    link={guild?._id}
                                     isMember={true}
                                     permission={() => {}}
                                 />

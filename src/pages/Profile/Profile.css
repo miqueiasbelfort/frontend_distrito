@@ -50,6 +50,7 @@
     width: 20px;
     height: 20px;
     border-radius: 1px 1px 20px 20px;
+    object-fit: cover;
 
 }
 .scorePointsUser{

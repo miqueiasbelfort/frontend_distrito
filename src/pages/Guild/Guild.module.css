@@ -46,6 +46,14 @@
   gap: 20px;
   overflow-x: auto;
 }
+.isGuildMasterAndName{
+  display: flex;
+  align-items: center;
+}
+.isGuildMasterAndName svg {
+  margin-left: 10px;
+}
+
 
 .membersContainer::-webkit-scrollbar {
   height: 3px; 

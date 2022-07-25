@@ -57,7 +57,7 @@ const App: React.FC = () => {
             <Route path='/create/post' element={ <Private><CreatePost/></Private> }/>
             <Route path='/create/guild' element={ <Private><CreateGuild/></Private> }/>
             <Route path='/guilds' element={ <Private><Guilds/></Private> }/>
-            <Route path='/guilds/:id' element={ <Private><Guild/></Private> }/>
+            <Route path='/guilds/:guildname' element={ <Private><Guild/></Private> }/>
             <Route path="/challenges" element={<Private><Challenges/></Private>} />
           </Routes>
         </AuthContextProvider>
