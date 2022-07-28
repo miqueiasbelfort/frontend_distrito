@@ -2,27 +2,49 @@ import React, {useState, useEffect, FormEvent} from "react"
 import "./CreateGuild.css"
 
 import Button from "../../components/Button"
+import { useParams } from "react-router-dom"
+
+import { api } from "../../services/api"
+import { uploads } from "../../utils/config"
 
 const CreateGuild = () => {
 
+    const {id} = useParams()
+
+    const token = localStorage.getItem("token")
     const [guildName, setGuildName] = useState<string>("")
     const [link, setLink] = useState<string>("")
     const [desc, setDesc] = useState<string>("")
+    const [warcry, setWarCry] = useState<string>("")
+    const [image, setImage] = useState<any>()
     const [imgPreview, setImagePreview] = useState<any>("")
 
     const handleFile = (e: any) => {
         const image = e.target.files[0]
+        setImage(image)
         setImagePreview(image)
     }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log({
-            guildName,
+
+        api.post("/guilds/create", {
+            guildname: guildName,
+            description: desc,
+            warcry,
+            guildPhoto: image,
             link,
-            desc,
-            imgPreview
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': "multipart/form-data"
+            }
+
+        }).catch(err => {
+            console.log(err.response.data.error)
         })
+
     }
 
     return (
@@ -65,6 +87,14 @@ const CreateGuild = () => {
                     </div>
 
                 </div>
+                <label className="guildNameAndLink">
+                    <span>Grito de guerra:</span>
+                    <input 
+                        type="text"
+                        placeholder="EX: Mudar o mundo com Programação!"
+                        onChange={e => setWarCry(e.target.value)}
+                    />
+                </label>
                 <label className="guildFormDescContainer">
                     <span>Descrição:</span>
                     <textarea 

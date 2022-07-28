@@ -30,7 +30,8 @@
   font-weight: 300;
   color: var(--green-color800);
 }
-.informationsGuildText a {
+.informationsGuildText a,
+.dark .informationsGuildText a {
   color: var(--green-color800);
 }
 
@@ -108,6 +109,12 @@
     overflow-y: auto;
     margin-top: -7px;
 }
+.linkGuild,
+.dark .linkGuild{
+  color: var(--green-color800);
+  text-decoration: underline;
+}
+
 
 .challengesContainer::-webkit-scrollbar {
     width: 3px;

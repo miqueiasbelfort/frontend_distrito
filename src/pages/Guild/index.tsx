@@ -14,6 +14,8 @@ const Guild = () => {
     const [guild, setGuild] = useState<any>([])
     const [membersLenght, setMembersLength] = useState([])
 
+    const [user, setUser] = useState<any>()
+
     const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
@@ -32,6 +34,14 @@ const Guild = () => {
             }
         }).then(res => {
             setMembersLength(res.data)
+        })
+
+        api.get("/users", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => {
+            setUser(res.data)
         })
 
         setLoading(false)
@@ -53,6 +63,7 @@ const Guild = () => {
                     <div>
                         <span>{membersLenght.length} {membersLenght.length > 1 || membersLenght.length == 0 ? <span>Membros</span> : <span>Membro</span>}</span>
                     </div>
+                    {user?.username === guild?.userName && <Link className={styles.linkGuild} to={`/guilds/edit/${guild?._id}`}>Editar Guilda</Link>} 
                 </div>
             </div>
             <h1>Membros</h1>
@@ -63,7 +74,9 @@ const Guild = () => {
                             <img src={`${uploads}/images/users/${member?.UserPhoto}`} alt={member?.Username} />
                             <div className={styles.infouser}>
                                 <div className={styles.isGuildMasterAndName}>
-                                    <h3>{member?.Username}</h3>
+                                    <Link to={`/profile/${member?.Username}`}>
+                                        <h3>{member?.Username}</h3>
+                                    </Link>
                                     {member?.isGuildMaster && <IoIosFlag/>}
                                 </div>
                                 <span>{member?.userScore} - score</span>
@@ -74,6 +87,7 @@ const Guild = () => {
             </div>
             <h1>Desafios</h1>
             <div className={`${styles.challengesContainer} containerDark`}>
+                {user?.username === guild?.userName && <Link className={styles.linkGuild} to="/challange/create">Criar Desafios</Link>} 
                 <div className={styles.challenge}>
                     <Link to="/challenges"><h2>Criar uma plicação full stack</h2></Link>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea quis qui aliquam vero rerum iste eveniet ad accusamus officiis magni? Quas aut eligendi saepe. Totam iure nostrum dignissimos reprehenderit sapiente!</p>
