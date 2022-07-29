@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import styles from "./Guild.module.css"
 
 import {IoIosFlag} from "react-icons/io"
+import {TbNotification} from "react-icons/tb"
 import { Link, useParams } from "react-router-dom";
 import { api } from "../../services/api";
 import { uploads } from "../../utils/config";
@@ -63,7 +64,15 @@ const Guild = () => {
                     <div>
                         <span>{membersLenght.length} {membersLenght.length > 1 || membersLenght.length == 0 ? <span>Membros</span> : <span>Membro</span>}</span>
                     </div>
-                    {user?.username === guild?.userName && <Link className={styles.linkGuild} to={`/guilds/edit/${guild?._id}`}>Editar Guilda</Link>} 
+                    {user?.username === guild?.userName && (
+                        <div className={styles.linksGuildsAdmin}>
+                            <Link className={styles.linkGuild} to={`/guilds/edit/${guild?._id}`}>Editar Guilda</Link>
+                            <Link 
+                                to={`/guilds/notifications/${guild?._id}`}
+                                style={guild?.permissionToEnter?.length >= 1 ? {color: "green"} : {color: "gray"}}
+                            ><TbNotification/></Link>
+                        </div>
+                    )} 
                 </div>
             </div>
             <h1>Membros</h1>

@@ -54,6 +54,21 @@
 .isGuildMasterAndName svg {
   margin-left: 10px;
 }
+.linksGuildsAdmin{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.linksGuildsAdmin svg {
+  font-size: 1.2em;
+}
+.active {
+  color: var(--green-color800);
+}
+.desable {
+  color: var(--gray-color);
+  cursor: not-allowed;
+}
 
 
 .membersContainer::-webkit-scrollbar {
