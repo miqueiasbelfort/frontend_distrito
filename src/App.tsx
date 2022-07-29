@@ -48,16 +48,21 @@ const App: React.FC = () => {
         <AuthContextProvider>
           <Navbar/>
           <Routes>
+
             <Route path='/' element={<InPrivate><Login/></InPrivate>}/>
             <Route path='/register' element={<InPrivate><Register/></InPrivate>}/>
             <Route path='/profile/:username' element={ <Private><Profile/></Private> }/>
             <Route path="/profile/edit" element={<Private><EditUser/></Private>}/>
+
             <Route path='/feed' element={ <Private><Feed/></Private> }/>
             <Route path="/feed/:id" element={<Private><Post/></Private>} />
             <Route path='/create/post' element={ <Private><CreatePost/></Private> }/>
+
             <Route path='/create/guild' element={ <Private><CreateGuild/></Private> }/>
+            <Route path='/guilds/edit/:guildname' element={ <Private><CreateGuild/></Private> }/>
             <Route path='/guilds' element={ <Private><Guilds/></Private> }/>
             <Route path='/guilds/:guildname' element={ <Private><Guild/></Private> }/>
+
             <Route path="/challenges" element={<Private><Challenges/></Private>} />
           </Routes>
         </AuthContextProvider>

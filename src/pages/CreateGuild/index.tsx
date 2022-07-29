@@ -9,7 +9,7 @@ import { uploads } from "../../utils/config"
 
 const CreateGuild = () => {
 
-    const {id} = useParams()
+    const {guildname} = useParams()
 
     const token = localStorage.getItem("token")
     const [guildName, setGuildName] = useState<string>("")
@@ -19,33 +19,72 @@ const CreateGuild = () => {
     const [image, setImage] = useState<any>()
     const [imgPreview, setImagePreview] = useState<any>("")
 
+    const [theGuild, setTheGuild] = useState<any>()
+
     const handleFile = (e: any) => {
         const image = e.target.files[0]
         setImage(image)
         setImagePreview(image)
     }
 
+    useEffect(() => {
+
+        if(guildname){
+            api.get(`/guilds/${guildname}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(res => {
+                setTheGuild(res.data)
+                setGuildName(res.data.guildname)
+                setLink(res.data.link)
+                setDesc(res.data.description)
+                setWarCry(res.data.warcry)
+            })
+        }
+
+    }, [guildname])
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        api.post("/guilds/create", {
-            guildname: guildName,
-            description: desc,
-            warcry,
-            guildPhoto: image,
-            link,
-        },
-        {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': "multipart/form-data"
-            }
+        if(guildname){
 
-        }).catch(err => {
-            console.log(err.response.data.error)
-        })
+            api.patch(`/guilds/edit/${theGuild?._id}`, {
+                guildname: guildName,
+                description: desc,
+                warcry,
+                guildPhoto: image,
+                link,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).catch(err => {
+                console.log(err.response.data.error)
+            })
+
+        }else {
+            api.post("/guilds/create", {
+                guildname: guildName,
+                description: desc,
+                warcry,
+                guildPhoto: image,
+                link,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': "multipart/form-data"
+                }
+    
+            }).catch(err => {
+                console.log(err.response.data.error)
+            })
+        }
 
     }
+    // URL.createObjectURL(imgPreview)
 
     return (
         <div className="createGuildContainer">
@@ -58,9 +97,7 @@ const CreateGuild = () => {
 
                     <div className="fileGuild">
                         <div className="imgPreviewGuild">
-                            {imgPreview && (
-                                <img src={URL.createObjectURL(imgPreview)} alt="" />
-                            )}
+                            <img src={imgPreview ? URL.createObjectURL(imgPreview) : `${uploads}/images/guilds/${theGuild?.guildPhoto}`} alt="" />
                         </div>
                         <label className="fileContainerGuildChoice">
                             <span>Escolher IMG</span>
@@ -74,6 +111,7 @@ const CreateGuild = () => {
                                 type="text"
                                 placeholder="EX: Code_Win"
                                 onChange={e => setGuildName(e.target.value)}
+                                value={guildName || ""}
                             />
                         </label>
                         <label className="guildNameAndLink">
@@ -82,6 +120,7 @@ const CreateGuild = () => {
                                 type="text"
                                 placeholder="EX: http://grupodaguilda.com.br"
                                 onChange={e => setLink(e.target.value)}
+                                value={link || ""}
                             />
                         </label>
                     </div>
@@ -93,6 +132,7 @@ const CreateGuild = () => {
                         type="text"
                         placeholder="EX: Mudar o mundo com Programação!"
                         onChange={e => setWarCry(e.target.value)}
+                        value={warcry || ""}
                     />
                 </label>
                 <label className="guildFormDescContainer">
@@ -100,6 +140,7 @@ const CreateGuild = () => {
                     <textarea 
                         placeholder="EX: Guilda focado no desenvolvimeto back-end"
                         onChange={e => setDesc(e.target.value)}
+                        value={desc || ""}
                     ></textarea>
                 </label>
                 <div className="btnContainerForm">

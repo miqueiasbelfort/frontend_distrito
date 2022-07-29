@@ -38,7 +38,7 @@ const Guilds = () => {
     }, [])
 
     const handlePermission = (guild: string): void => {
-        api.post(`/guilds/permission/${UserName}/guild/${guild}`, {
+        api.patch(`/guilds/permission/${guild}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -59,7 +59,7 @@ const Guilds = () => {
 
             {
                 guilds && guilds.map((guild: any) => (
-                    <>
+                    <div key={guild?._id}>
                         {
                             user?.guild !== guild.guildname ? (
                                 <GuildCard
@@ -83,7 +83,7 @@ const Guilds = () => {
                                 />
                             )
                         }
-                    </>
+                    </div>
                 ))
             }
         </div>

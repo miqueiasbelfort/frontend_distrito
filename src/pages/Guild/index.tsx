@@ -66,10 +66,10 @@ const Guild = () => {
                     </div>
                     {user?.username === guild?.userName && (
                         <div className={styles.linksGuildsAdmin}>
-                            <Link className={styles.linkGuild} to={`/guilds/edit/${guild?._id}`}>Editar Guilda</Link>
+                            <Link className={styles.linkGuild} to={`/guilds/edit/${guild?.guildname}`}>Editar Guilda</Link>
                             <Link 
                                 to={`/guilds/notifications/${guild?._id}`}
-                                style={guild?.permissionToEnter?.length >= 1 ? {color: "green"} : {color: "gray"}}
+                                style={guild?.permissionToEnter?.length >= 1 ? {color: "#039409"} : {color: "gray"}}
                             ><TbNotification/></Link>
                         </div>
                     )} 
