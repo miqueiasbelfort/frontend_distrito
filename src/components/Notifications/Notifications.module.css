@@ -1,0 +1,82 @@
+.container{
+    position: fixed;
+    top: 70px;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.notiContainer{
+    width: 50%;
+    height: 300px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #fff;
+    border-radius: 10px;
+}
+.containerClose{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.containerClose svg {
+    cursor: pointer;
+    max-width: 20px;
+}
+.notiContainer ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    overflow: auto;
+    height: 280px;
+    padding-right: 10px;
+}
+.notiContainer li {
+    width: 100%;
+    padding: 7px 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border-bottom: 2px solid #ccc;
+}
+.user{
+    align-items: center;
+    gap: 3px;
+}
+.user h2 {
+    color: var(--green-color800);
+}
+
+
+.buttonContainer{
+    display:flex;
+    align-items: center;
+    gap: 10px; 
+}
+.button{
+    padding: 5px 10px;
+    background-color: var(--green-color800);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.refuse{
+    background-color: #900000;
+}
+
+@media screen and (max-width: 768px){
+    .notiContainer {
+        width: 95%;
+    }
+}

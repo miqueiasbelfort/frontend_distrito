@@ -155,6 +155,10 @@
     margin-bottom: 5px;
 }
 
+.notificaButton{
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px){
   .guildinformations{
     flex-direction: column;

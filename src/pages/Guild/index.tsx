@@ -6,6 +6,7 @@ import {TbNotification} from "react-icons/tb"
 import { Link, useParams } from "react-router-dom";
 import { api } from "../../services/api";
 import { uploads } from "../../utils/config";
+import Notifications from "../../components/Notifications";
 
 const Guild = () => {
 
@@ -18,6 +19,9 @@ const Guild = () => {
     const [user, setUser] = useState<any>()
 
     const [loading, setLoading] = useState<boolean>(true)
+
+    // logic
+    const [notifications, setNotifications] = useState<boolean>(false)
 
     useEffect(() => {
 
@@ -54,58 +58,72 @@ const Guild = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <div className={styles.guildinformations}>
-                <img src={`${uploads}/images/guilds/${guild?.guildPhoto}`} alt={guild?.guildname} className={styles.guildphoto}/>
-                <div className={styles.informationsGuildText}>
-                    <h2>{guild?.guildname} - <span className={styles.score}>{guild?.score} score</span></h2>
-                    <a href={guild?.link}>{guild?.link}</a>
-                    <p>{guild?.description}</p>
-                    <div>
-                        <span>{membersLenght.length} {membersLenght.length > 1 || membersLenght.length == 0 ? <span>Membros</span> : <span>Membro</span>}</span>
+        <>
+            {
+                notifications && (
+                    <div className={styles.notificationsContainer}>
+                        <Notifications
+                            active={setNotifications}
+                            guildid={guild?._id}
+                            userPermission={guild?.permissionToEnter}
+                        />
                     </div>
-                    {user?.username === guild?.userName && (
-                        <div className={styles.linksGuildsAdmin}>
-                            <Link className={styles.linkGuild} to={`/guilds/edit/${guild?.guildname}`}>Editar Guilda</Link>
-                            <Link 
-                                to={`/guilds/notifications/${guild?._id}`}
-                                style={guild?.permissionToEnter?.length >= 1 ? {color: "#039409"} : {color: "gray"}}
-                            ><TbNotification/></Link>
+                )
+            }
+            <div className={styles.container}>
+                <div className={styles.guildinformations}>
+                    <img src={`${uploads}/images/guilds/${guild?.guildPhoto}`} alt={guild?.guildname} className={styles.guildphoto}/>
+                    <div className={styles.informationsGuildText}>
+                        <h2>{guild?.guildname} - <span className={styles.score}>{guild?.score} score</span></h2>
+                        <a href={guild?.link}>{guild?.link}</a>
+                        <p>{guild?.description}</p>
+                        <div>
+                            <span>{membersLenght.length} {membersLenght.length > 1 || membersLenght.length == 0 ? <span>Membros</span> : <span>Membro</span>}</span>
                         </div>
-                    )} 
-                </div>
-            </div>
-            <h1>Membros</h1>
-            <div className={`${styles.membersContainer} containerDark`}>
-                {
-                    membersLenght.map((member: any) => (
-                        <div key={member?._id} className={`${styles.userCard}`}>
-                            <img src={`${uploads}/images/users/${member?.UserPhoto}`} alt={member?.Username} />
-                            <div className={styles.infouser}>
-                                <div className={styles.isGuildMasterAndName}>
-                                    <Link to={`/profile/${member?.Username}`}>
-                                        <h3>{member?.Username}</h3>
-                                    </Link>
-                                    {member?.isGuildMaster && <IoIosFlag/>}
-                                </div>
-                                <span>{member?.userScore} - score</span>
+                        {user?.username === guild?.userName && (
+                            <div className={styles.linksGuildsAdmin}>
+                                <Link className={styles.linkGuild} to={`/guilds/edit/${guild?.guildname}`}>Editar Guilda</Link>
+                                <span 
+                                    onClick={() => setNotifications(!notifications)}
+                                    className={styles.notificaButton}
+                                    style={guild?.permissionToEnter?.length >= 1 ? {color: "#039409"} : {color: "gray"}}
+                                ><TbNotification/></span>
                             </div>
+                        )} 
+                    </div>
+                </div>
+                <h1>Membros</h1>
+                <div className={`${styles.membersContainer} containerDark`}>
+                    {
+                        membersLenght.map((member: any) => (
+                            <div key={member?._id} className={`${styles.userCard}`}>
+                                <img src={`${uploads}/images/users/${member?.UserPhoto}`} alt={member?.Username} />
+                                <div className={styles.infouser}>
+                                    <div className={styles.isGuildMasterAndName}>
+                                        <Link to={`/profile/${member?.Username}`}>
+                                            <h3>{member?.Username}</h3>
+                                        </Link>
+                                        {member?.isGuildMaster && <IoIosFlag/>}
+                                    </div>
+                                    <span>{member?.userScore} - score</span>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+                <h1>Desafios</h1>
+                <div className={`${styles.challengesContainer} containerDark`}>
+                    {user?.username === guild?.userName && <Link className={styles.linkGuild} to="/challange/create">Criar Desafios</Link>} 
+                    <div className={styles.challenge}>
+                        <Link to="/challenges"><h2>Criar uma plicação full stack</h2></Link>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea quis qui aliquam vero rerum iste eveniet ad accusamus officiis magni? Quas aut eligendi saepe. Totam iure nostrum dignissimos reprehenderit sapiente!</p>
+                        <div className={styles.buttonContainer}>
+                            <button className="button">Aceitar Desafio</button>
                         </div>
-                    ))
-                }
-            </div>
-            <h1>Desafios</h1>
-            <div className={`${styles.challengesContainer} containerDark`}>
-                {user?.username === guild?.userName && <Link className={styles.linkGuild} to="/challange/create">Criar Desafios</Link>} 
-                <div className={styles.challenge}>
-                    <Link to="/challenges"><h2>Criar uma plicação full stack</h2></Link>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea quis qui aliquam vero rerum iste eveniet ad accusamus officiis magni? Quas aut eligendi saepe. Totam iure nostrum dignissimos reprehenderit sapiente!</p>
-                    <div className={styles.buttonContainer}>
-                        <button className="button">Aceitar Desafio</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
