@@ -113,7 +113,7 @@ const Guild = () => {
                 </div>
                 <h1>Desafios</h1>
                 <div className={`${styles.challengesContainer} containerDark`}>
-                    {user?.username === guild?.userName && <Link className={styles.linkGuild} to="/challange/create">Criar Desafios</Link>} 
+                    {user?.username === guild?.userName && <Link className={styles.linkGuild} to={`/challenges/create/${guild?._id}`}>Criar Desafios</Link>} 
                     <div className={styles.challenge}>
                         <Link to="/challenges"><h2>Criar uma plicação full stack</h2></Link>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea quis qui aliquam vero rerum iste eveniet ad accusamus officiis magni? Quas aut eligendi saepe. Totam iure nostrum dignissimos reprehenderit sapiente!</p>
