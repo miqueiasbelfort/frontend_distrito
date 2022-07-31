@@ -1,31 +1,67 @@
-import React from "react";
-import styles from "./Challenges.module.css"
+import React, { useState, useEffect } from "react";
+import styles from "./Challenges.module.css";
 
-import Img from "../../assets/04.jpg"
+import Img from "../../assets/04.jpg";
+import { api } from "../../services/api";
+import { uploads } from "../../utils/config";
 
 const Challenges = () => {
-    return (
-        <div className={styles.container}>
-            <div className={`${styles.chellengesContainer} containerDark`}>
-                <div className={styles.guildInfo}>
-                    <img src={Img} alt="" />
-                    <div className={styles.guilname}>
-                        <h2>Code_Win</h2>
-                        <span>-</span>
-                        <span className={styles.score}>1520 - score</span>
-                    </div>
-                </div>
-                <div className={styles.challengeInformation}>
-                    <h2>Criar uma plicação full stack</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo id facere, voluptates eius assumenda aliquid! Quas, non quos ut laudantium minima est reiciendis nesciunt dolor beatae, repellat earum nihil! Nulla.</p>
-                </div>
-                <p>Você ganha <span className={styles.score}>25 Score</span> por esse desafio!</p>
-                <div className={styles.buttonContainer}>
-                    <button className="button">Aceitar desafio</button>
-                </div>
-            </div>
-        </div>
-    )
-}
+  const [token] = useState(localStorage.getItem("token"));
+  const [challenges, setChallenges] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(true)
 
-export default Challenges
+  useEffect(() => {
+    api
+      .get("challenge", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setChallenges(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data.error);
+      });
+      setLoading(false)
+  }, []);
+
+  if(loading){
+    return <h1>Carregando...</h1>
+  }
+
+  return (
+    <div className={styles.container}>
+      {challenges.map((challenge: any) => (
+
+        <div className={`${styles.chellengesContainer} containerDark`}>
+          <div className={styles.guildInfo}>
+            <img src={`${uploads}/images/guilds/${challenge?.guildPhoto}`} alt="" />
+            <div className={styles.guilname}>
+              <h2>{challenge?.guildName}</h2>
+              <span>-</span>
+              <span className={styles.score}>{challenge?.guildScore} - score</span>
+            </div>
+          </div>
+          <div className={styles.challengeInformation}>
+            <h2>{challenge?.title}</h2>
+            <p>
+              {challenge?.desc}
+            </p>
+          </div>
+          <a href={challenge?.link}>{challenge?.link}</a>
+          <p>
+            Você ganha <span className={styles.score}>{challenge?.score} Score</span> por esse
+            desafio!
+          </p>
+          <div className={styles.buttonContainer}>
+            <button className="button">Aceitar desafio</button>
+          </div>
+        </div>
+
+      ))}
+    </div>
+  );
+};
+
+export default Challenges;
