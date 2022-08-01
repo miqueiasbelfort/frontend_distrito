@@ -21,12 +21,12 @@ const Profile = () => {
 
     useEffect(() => {
         
-        api.get(`/users`,{
+        api.get(`/users/${username}`,{
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then(res => {
-            setUser(res.data)
+            setUser(res.data.user)
         })
 
         setLoading(false)

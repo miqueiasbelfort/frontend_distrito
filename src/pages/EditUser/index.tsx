@@ -61,9 +61,7 @@ const EditUser = () => {
             }
         }).then(res => {
             localStorage.setItem("user", username.toLowerCase())
-            setTimeout(() => {
-                navigate(`/profile/${username}`)
-            }, 2000)
+            navigate(`/profile/${username}`)
         })
 
         SetUserName(username)

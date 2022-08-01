@@ -51,7 +51,7 @@ const Guild = () => {
             setUser(res.data)
         })
 
-        api.get(`/challenge/guild/${guild?._id}`, {
+        api.get(`/challenge/guild/${guildname}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
