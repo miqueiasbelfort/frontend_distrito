@@ -1,17 +1,42 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import styles from "./Post.module.css"
 
 // components
-import ImageUser from "../../assets/04.jpg"
 import { AiFillLike, AiFillCloseCircle, AiFillCheckCircle } from "react-icons/ai"
 import Button from "../../components/Button"
 import CommentCard from "../../components/CommentCard"
+import { useParams } from "react-router-dom"
+import { api } from "../../services/api"
+import { uploads } from "../../utils/config"
 
 const Post = () => {
+
+    const {id} = useParams()
 
     const [isLiked, setIsLiked] = useState<boolean>(false)
     const [isComplete, setIsComplete] = useState<boolean>(false)
     const [isInComplete, setIsImComplete] = useState<boolean>(false)
+
+    const [loading, setLoading] = useState<boolean>(true)
+    const [token] = useState(localStorage.getItem("token"))
+
+    const [post, setPost] = useState<any>()
+
+    useEffect(() => {
+
+        api.get(`/posts/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => {
+            setPost(res.data)
+        }).catch(err => {
+            console.log(err.response.data.error)
+        })
+
+        setLoading(false)
+
+    }, [id])
 
     const handleLike = () => {
         setIsLiked(!isLiked)
@@ -25,23 +50,27 @@ const Post = () => {
         setIsComplete(false)
     }
 
+    if(loading){
+        return <h1>Carregando...</h1>
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.inforPostContainer}>
                 <div className={styles.infoUserPost}>
-                    <img src={ImageUser} alt="userphoto"  className={styles.userPhotoOfPost}/>
-                    <h2>Username</h2>
+                    <img src={`${uploads}/images/users/${post?.photoUser}`} alt={post?.userName}  className={styles.userPhotoOfPost}/>
+                    <h2>{post?.userName}</h2>
                 </div>
                 <div className={styles.whereIsTheChallenge}>
-                    <h3>Crair uma aplicação full stack</h3>
+                    <h3>{post?.challenge}</h3>
                     <div className={styles.guildInformationPost}>
-                        <img src={ImageUser} alt="guild img" />
-                        <h2>CODE_WIN</h2>
+                        <img src={`${uploads}/images/guilds/${post?.imageGuildChallenge}`} alt={post?.guildChallenge} />
+                        <h2>{post?.guildChallenge}</h2>
                     </div>
                 </div>
-                <p className={styles.textOfPost}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi provident nobis quis! Molestiae est deserunt nostrum, eaque eveniet exercitationem quidem at, similique totam blanditiis, sint minima atque in ad doloribus.</p>
-                <a href="">http://miqueiasbelfort.netlify.app/</a>
-                <img src={ImageUser} alt="post img" className={styles.postImagePost}/>
+                <p className={styles.textOfPost}>{post?.text}</p>
+                <a href={post?.link}>{post?.link}</a>
+                <img src={`${uploads}/images/posts/${post?.postPhoto}`} alt={post?._id} className={styles.postImagePost}/>
                 <div className={styles.actionsOfPost}>
                     <button 
                         className={isLiked ? styles.likeButtonActive : styles.likeButtonInActive}
@@ -63,8 +92,8 @@ const Post = () => {
             <div className={styles.commentContainerPost}>
                 <form className="commentForm">
                     <div className={styles.informationUserComment}>
-                        <img src={ImageUser} alt="userImgComment" />
-                        <span>Username</span>
+                        <img src={`${uploads}/images/users/${post?.photoUser}`} alt="userImgComment" />
+                        <span>{post?.userName}</span>
                     </div>
                     <input type="text" placeholder="Deixe um commentario!"/>
                     <div className={styles.btnContainer}>

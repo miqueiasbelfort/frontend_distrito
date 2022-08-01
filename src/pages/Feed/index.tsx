@@ -23,10 +23,11 @@ const Feed = () => {
             <div className="feed">
                 {posts && posts.map((post: any) => (
                     <CardPost
-                        username="miqueias_belfort"
-                        userPhoto="test.jpg"
-                        text="loream"
-                        image="test.jpg"
+                        username={post?.userName}
+                        userPhoto={post?.photoUser}
+                        text={post?.text}
+                        image={post?.postPhoto}
+                        idPost={post?._id}
                     />
                 ))}
                 {posts.length === 0 && (
