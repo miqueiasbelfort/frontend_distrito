@@ -18,6 +18,8 @@ const Guild = () => {
 
     const [user, setUser] = useState<any>()
 
+    const [challenges, setChallenges] = useState<any>([])
+
     const [loading, setLoading] = useState<boolean>(true)
 
     // logic
@@ -47,6 +49,14 @@ const Guild = () => {
             }
         }).then(res => {
             setUser(res.data)
+        })
+
+        api.get(`/challenge/guild/${guild?._id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => {
+            setChallenges(res.data)
         })
 
         setLoading(false)
@@ -114,13 +124,17 @@ const Guild = () => {
                 <h1>Desafios</h1>
                 <div className={`${styles.challengesContainer} containerDark`}>
                     {user?.username === guild?.userName && <Link className={styles.linkGuild} to={`/challenges/create/${guild?._id}`}>Criar Desafios</Link>} 
-                    <div className={styles.challenge}>
-                        <Link to="/challenges"><h2>Criar uma plicação full stack</h2></Link>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea quis qui aliquam vero rerum iste eveniet ad accusamus officiis magni? Quas aut eligendi saepe. Totam iure nostrum dignissimos reprehenderit sapiente!</p>
-                        <div className={styles.buttonContainer}>
-                            <button className="button">Aceitar Desafio</button>
-                        </div>
-                    </div>
+                    {
+                        challenges.map((challenge: any) => (
+                            <div className={styles.challenge}>
+                                <h2>{challenge?.title}</h2>
+                                <p>{challenge?.desc}</p>
+                                <div className={styles.buttonContainer}>
+                                    <Link to={`/create/post/${challenge?._id}`} className="button">Aceitar Desafio</Link>
+                                </div>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
         </>

@@ -57,7 +57,7 @@ const App: React.FC = () => {
 
             <Route path='/feed' element={ <Private><Feed/></Private> }/>
             <Route path="/feed/:id" element={<Private><Post/></Private>} />
-            <Route path='/create/post' element={ <Private><CreatePost/></Private> }/>
+            <Route path='/create/post/:id' element={ <Private><CreatePost/></Private> }/>
 
             <Route path='/create/guild' element={ <Private><CreateGuild/></Private> }/>
             <Route path='/guilds/edit/:guildname' element={ <Private><CreateGuild/></Private> }/>

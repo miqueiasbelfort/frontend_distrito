@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Challenges.module.css";
 
-import Img from "../../assets/04.jpg";
+import { Link } from "react-router-dom";
 import { api } from "../../services/api";
 import { uploads } from "../../utils/config";
 
@@ -55,7 +55,7 @@ const Challenges = () => {
             desafio!
           </p>
           <div className={styles.buttonContainer}>
-            <button className="button">Aceitar desafio</button>
+            <Link to={`/create/post/${challenge?._id}`} className="button">Aceitar desafio</Link>
           </div>
         </div>
 

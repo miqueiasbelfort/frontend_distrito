@@ -34,6 +34,9 @@
 .score {
     color: var(--green-color800);
 }
+.buttonContainer{
+    margin: 10px 0;
+}
 
 .challengeInformation{
     display: flex;
