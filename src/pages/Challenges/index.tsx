@@ -38,9 +38,7 @@ const Challenges = () => {
           <div className={styles.guildInfo}>
             <img src={`${uploads}/images/guilds/${challenge?.guildPhoto}`} alt="" />
             <div className={styles.guilname}>
-              <h2>{challenge?.guildName}</h2>
-              <span>-</span>
-              <span className={styles.score}>{challenge?.guildScore} - score</span>
+              <Link to={`/guilds/${challenge?.guildName}`}><h2>{challenge?.guildName}</h2></Link>
             </div>
           </div>
           <div className={styles.challengeInformation}>

@@ -12,7 +12,7 @@ const Profile = () => {
     
     const [token] = useState<any>(localStorage.getItem("token") || "")
     const [user, setUser] = useState<any>()
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState<any>()
 
     const {username} = useParams()
     const userLocalStorege = localStorage.getItem("user")
@@ -27,10 +27,12 @@ const Profile = () => {
             }
         }).then(res => {
             setUser(res.data.user)
+            setPosts(res.data.posts)
         })
 
         setLoading(false)
-    }, [token])
+
+    }, [token, username])
 
     const handleClick = () => {
         console.log(user)
@@ -83,7 +85,7 @@ const Profile = () => {
                 <div className="postsOfuser">
                     {posts ? posts.map((post: any) => (
                         <Link to={`/feed/${post?._id}`}>
-                            <img src={post?.postPhoto} alt="imagepost" className="PostOfUser"/>
+                            <img src={`${uploads}/images/posts/${post?.postPhoto}`} alt={post?._id} className="PostOfUser"/>
                         </Link>
                     )) : (
                         <div className="dontHavePostsContainer">

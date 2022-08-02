@@ -2,12 +2,14 @@ import React, {FormEvent, useState, useEffect} from "react"
 import "./CreatePost.css"
 
 import Button from "../../components/Button"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { api } from "../../services/api"
 
 const CreatePost = () => {
 
     const {id} = useParams()
+
+    const navigate = useNavigate()
 
     const [link, setLink] = useState<string>("")
     const [challenge, setChallenge] = useState<any>()
@@ -51,6 +53,8 @@ const CreatePost = () => {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': "multipart/form-data"
             }
+        }).then((res) => {
+            navigate(`/feed/${res.data._id}`)
         }).catch(err => {
             console.log(err.response.data.error)
         })

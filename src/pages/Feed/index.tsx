@@ -41,7 +41,7 @@ const Feed = () => {
                 <span>Melhores guildas do rank</span>
                 <div className="feedGuildInformations">
                     <div className="guildasInfo">
-                        <img src={FeedImage} alt="guilda Image" />
+                        <img src="" alt="guilda Image" />
                         <h2>SCORPION</h2>
                     </div>
                     <span>250 checks</span>

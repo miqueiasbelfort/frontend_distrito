@@ -18,21 +18,8 @@ function Navbar() {
   const {logout, user} = useContext(AuthContext)
   const userLocal = localStorage.getItem("user")
   const [token] = useState(localStorage.getItem("token"))
-  const [username, setUsername] = useState<any>()
 
-    const [dark, setDark] = useState<boolean>(true)
-
-    useEffect(() => {
-
-      api.get("/users", {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }).then(res => {
-        setUsername(res.data)
-      })
-
-     }, [token])
+  const [dark, setDark] = useState<boolean>(true)
 
   const handleTheme = (): void => {
       document.body.classList.toggle("dark")

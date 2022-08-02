@@ -2,7 +2,7 @@ import React, {useState, useEffect, FormEvent} from "react"
 import "./CreateGuild.css"
 
 import Button from "../../components/Button"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import { api } from "../../services/api"
 import { uploads } from "../../utils/config"
@@ -10,6 +10,8 @@ import { uploads } from "../../utils/config"
 const CreateGuild = () => {
 
     const {guildname} = useParams()
+
+    const navigate = useNavigate()
 
     const token = localStorage.getItem("token")
     const [guildName, setGuildName] = useState<string>("")
@@ -60,6 +62,8 @@ const CreateGuild = () => {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
+            }).then(() => {
+                navigate(`/guilds/${guildName}`)
             }).catch(err => {
                 console.log(err.response.data.error)
             })

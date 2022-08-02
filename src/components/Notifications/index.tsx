@@ -15,6 +15,7 @@ const Notifications = ({active, guildid, userPermission}: Props) => {
     const [token] = useState(localStorage.getItem("token"))
 
     const handlePermission = (use: string) => {
+        
         api.post(`/guilds/permission/${use}/guild/${guildid}`,{
             headers: {
                 Authorization: `Bearer ${token}`
@@ -23,6 +24,25 @@ const Notifications = ({active, guildid, userPermission}: Props) => {
             console.log(err.response.data.error)
         })
         
+        api.patch(`/guilds/permission/refuse/${guildid}/user/${use}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).catch(err => {
+            console.log(err.response.data.error)
+        })
+
+        active(false)
+    }
+
+    const handleRefuse = (use: string) => {
+        api.patch(`/guilds/permission/refuse/${guildid}/user/${use}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).catch(err => {
+            console.log(err.response.data.error)
+        })
         active(false)
     }
 
@@ -44,7 +64,12 @@ const Notifications = ({active, guildid, userPermission}: Props) => {
                             <span>Quer fazer parte da sua guilda!</span>
                         </div>
                         <div className={styles.buttonContainer}>
-                            <button className={`${styles.button} ${styles.refuse}`}>Recusar</button>
+                            <button 
+                                className={`${styles.button} ${styles.refuse}`}
+                                onClick={() => handleRefuse(use)}
+                            >
+                                Recusar
+                            </button>
                             <button 
                                 className={styles.button}
                                 onClick={() => handlePermission(use)}
