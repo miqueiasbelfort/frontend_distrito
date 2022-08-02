@@ -12,7 +12,7 @@ const Profile = () => {
     
     const [token] = useState<any>(localStorage.getItem("token") || "")
     const [user, setUser] = useState<any>()
-    const [posts, setPosts] = useState<any>()
+    const [posts, setPosts] = useState<any>([])
 
     const {username} = useParams()
     const userLocalStorege = localStorage.getItem("user")
@@ -83,14 +83,14 @@ const Profile = () => {
 
             <div className="postsOfUserContainer">
                 <div className="postsOfuser">
-                    {posts ? posts.map((post: any) => (
+                    {posts.length >= 1 ? posts.map((post: any) => (
                         <Link to={`/feed/${post?._id}`}>
                             <img src={`${uploads}/images/posts/${post?.postPhoto}`} alt={post?._id} className="PostOfUser"/>
                         </Link>
                     )) : (
                         <div className="dontHavePostsContainer">
-                            <h1>Você ainda não tempublicações</h1>
-                            <Link to="/challenges">Primeiro desafio!</Link>
+                            <h1>Você ainda não tem publicações</h1>
+                            <Link to="/challenges">Vamos para o primeiro desafio!</Link>
                         </div>
                     )}
                 </div>

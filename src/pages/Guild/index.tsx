@@ -27,37 +27,15 @@ const Guild = () => {
 
     useEffect(() => {
 
-        api.get(`/guilds/${guildname}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(res => {
-            setGuild(res.data)
-        })
+        (async function(){
+            await api.get(`/guilds/${guildname}`, {headers: {Authorization: `Bearer ${token}`}}).then(res => setGuild(res.data))
 
-        api.get(`/guilds/members/${guild?.guildname}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(res => {
-            setMembersLength(res.data)
-        })
+            await api.get("/users", {headers: {Authorization: `Bearer ${token}`}}).then(res => setUser(res.data))
 
-        api.get("/users", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(res => {
-            setUser(res.data)
-        })
+            await api.get(`/guilds/members/${guildname}`, {headers: {Authorization: `Bearer ${token}`}}).then(res => setMembersLength(res.data))
 
-        api.get(`/challenge/guild/${guildname}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(res => {
-            setChallenges(res.data)
-        })
+            await api.get(`/challenge/guild/${guildname}`, {headers: {Authorization: `Bearer ${token}`}}).then(res => setChallenges(res.data))
+        })()
 
         setLoading(false)
 

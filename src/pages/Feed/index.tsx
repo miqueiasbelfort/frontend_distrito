@@ -5,16 +5,18 @@ import {api} from "../../services/api"
 // Components
 import { Link } from "react-router-dom"
 import CardPost from "../../components/CardPost"
+import { uploads } from "../../utils/config"
 
-import FeedImage from "../../assets/04.jpg"
 
 const Feed = () => {
 
     const [posts, setPosts] = useState<any>([])
+    const [rank, setRank] = useState<any>([])
 
     useEffect(() => {
 
        api.get("/posts").then(res => setPosts(res.data))
+       api.get("/guilds/rank").then(res => setRank(res.data))
 
     }, [])
 
@@ -39,14 +41,18 @@ const Feed = () => {
             </div>
             <div className="listOfBestguilds containerDark">
                 <span>Melhores guildas do rank</span>
-                <div className="feedGuildInformations">
-                    <div className="guildasInfo">
-                        <img src="" alt="guilda Image" />
-                        <h2>SCORPION</h2>
-                    </div>
-                    <span>250 checks</span>
-                </div>
-                <Link className="seeMoreGuildFeed" to="/feed/124545">Ver mais...</Link>
+                {
+                    rank.map((guild: any) => (
+                        <div className="feedGuildInformations">
+                            <div className="guildasInfo">
+                                <img src={`${uploads}/images/guilds/${guild?.guildPhoto}`} alt="guilda Image" />
+                                <Link to={`/guilds/${guild?.guildname}`}><h2>{guild?.guildname}</h2></Link>
+                            </div>
+                            <span>{guild?.score} score</span>
+                        </div>
+                    ))
+                }
+                <Link className="seeMoreGuildFeed" to="/guilds">Ver mais...</Link>
             </div>
         </div>
     )
