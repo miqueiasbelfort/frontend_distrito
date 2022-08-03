@@ -63,9 +63,11 @@ const App: React.FC = () => {
             <Route path='/guilds/edit/:guildname' element={ <Private><CreateGuild/></Private> }/>
             <Route path='/guilds' element={ <Private><Guilds/></Private> }/>
             <Route path='/guilds/:guildname' element={ <Private><Guild/></Private> }/>
+            <Route path='/guilds/search' element={ <Private><Guilds/></Private> }/>
 
             <Route path="/challenges" element={<Private><Challenges/></Private>} />
             <Route path="/challenges/create/:id" element={<Private><CreateChallenges/></Private>}/>
+            <Route path="/challenges/edit/:challengeId" element={<Private><CreateChallenges/></Private>}/>
 
           </Routes>
         </AuthContextProvider>

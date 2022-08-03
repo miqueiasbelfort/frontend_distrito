@@ -43,7 +43,7 @@ const Feed = () => {
                 <span>Melhores guildas do rank</span>
                 {
                     rank.map((guild: any) => (
-                        <div className="feedGuildInformations">
+                        <div className="feedGuildInformations" key={guild?._id}>
                             <div className="guildasInfo">
                                 <img src={`${uploads}/images/guilds/${guild?.guildPhoto}`} alt="guilda Image" />
                                 <Link to={`/guilds/${guild?.guildname}`}><h2>{guild?.guildname}</h2></Link>

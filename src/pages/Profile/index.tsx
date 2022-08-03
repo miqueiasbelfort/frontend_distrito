@@ -11,13 +11,16 @@ import {uploads} from "../../utils/config"
 const Profile = () => {
     
     const [token] = useState<any>(localStorage.getItem("token") || "")
+
     const [user, setUser] = useState<any>()
     const [posts, setPosts] = useState<any>([])
+    const [userTokenName, setUserTokenName] = useState<any>()
 
     const {username} = useParams()
     const userLocalStorege = localStorage.getItem("user")
 
     const [loading, setLoading] = useState<boolean>(true)
+    const [isFollow, setIsFollow] = useState<boolean>(false)
 
     useEffect(() => {
         
@@ -30,12 +33,25 @@ const Profile = () => {
             setPosts(res.data.posts)
         })
 
+        api.get(`/users`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => {
+            setUserTokenName(res.data)
+        })
+
         setLoading(false)
 
     }, [token, username])
 
     const handleClick = () => {
         console.log(user)
+        api.put(`/users/${user?.username}/follow`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(() => setIsFollow(true)).catch(err => console.log(err.response.data.error))
     }
 
     if(loading){
@@ -71,7 +87,15 @@ const Profile = () => {
                     <span>{user?.followers.length} seguindo</span>
                 </div>
             </div>
-            {user?.username !== userLocalStorege ? <button className="button" onClick={handleClick}>Seguir</button> : (
+            {user?.username !== userLocalStorege ? (
+                <>
+                   <button className="button" onClick={handleClick}>
+                    { 
+                        !user?.followings.includes(userTokenName._id) ? "Deixar de seguir" : "Seguir"
+                    }
+                   </button>
+                </>
+            ) : (
                 <>
                     <span><Link to="/profile/edit">Editar Perfil</Link></span>
                 </>

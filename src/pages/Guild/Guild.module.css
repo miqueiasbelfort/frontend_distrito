@@ -129,7 +129,27 @@
   color: var(--green-color800);
   text-decoration: underline;
 }
-
+.titleContainerChallenge{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.actionsButtons{
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.actionsButtons svg{
+  font-size: 1em;
+}
+.buttonTrash{
+  border: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  color: #fd4d4d;
+  font-size: 1em;
+}
 
 .challengesContainer::-webkit-scrollbar {
     width: 3px;

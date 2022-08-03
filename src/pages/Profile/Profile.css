@@ -113,6 +113,14 @@
     text-decoration: underline;
 }
 
+.unFollowUser, .dark .unFollowUser{
+    text-decoration: underline;
+    color: var(--green-color800);
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 @media screen and (max-width: 768px){
     .postsOfUser {
         justify-content: center;

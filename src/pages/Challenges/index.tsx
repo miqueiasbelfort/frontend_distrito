@@ -32,7 +32,7 @@ const Challenges = () => {
 
   return (
     <div className={styles.container}>
-      {challenges.map((challenge: any) => (
+      {challenges.length >= 1 ? challenges.map((challenge: any) => (
 
         <div className={`${styles.chellengesContainer} containerDark`}>
           <div className={styles.guildInfo}>
@@ -57,7 +57,12 @@ const Challenges = () => {
           </div>
         </div>
 
-      ))}
+      )) : (
+        <>
+          <h1>Não há desafios!</h1>
+          <span>Não perca tempo e crie sua guilda para criar seus desafios: <Link to="/create/guild" style={{color: "green", textDecoration: "underline"}}>Crair Guilda</Link></span>
+        </>
+      )}
     </div>
   );
 };

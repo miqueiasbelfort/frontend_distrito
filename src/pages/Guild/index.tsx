@@ -3,7 +3,9 @@ import styles from "./Guild.module.css"
 
 import {IoIosFlag} from "react-icons/io"
 import {TbNotification} from "react-icons/tb"
-import { Link, useParams } from "react-router-dom";
+import {BsPencilSquare, BsTrashFill} from "react-icons/bs"
+
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import { uploads } from "../../utils/config";
 import Notifications from "../../components/Notifications";
@@ -11,7 +13,9 @@ import Notifications from "../../components/Notifications";
 const Guild = () => {
 
     const [token] = useState<any>(localStorage.getItem("token") || "")
+
     const {guildname} = useParams()
+    const navigate = useNavigate()
 
     const [guild, setGuild] = useState<any>([])
     const [membersLenght, setMembersLength] = useState([])
@@ -40,6 +44,15 @@ const Guild = () => {
         setLoading(false)
 
     }, [guildname])
+
+    const handleTrash = (id: string) => {
+        api.delete(`/challenge/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(() => navigate(`/guilds/${guild?.guildname}`)).catch(err => console.log(err.response.data.error))
+
+    }
 
     if(loading){
         return <h1>Carregando...</h1>
@@ -105,7 +118,17 @@ const Guild = () => {
                     {
                         challenges.map((challenge: any) => (
                             <div className={styles.challenge}>
-                                <h2>{challenge?.title}</h2>
+                                <div className={styles.titleContainerChallenge}>
+                                    <h2>{challenge?.title}</h2>
+                                    {
+                                        user?.username === guild?.userName && (
+                                            <div className={styles.actionsButtons}>
+                                                <Link className={styles.linkGuild} to={`/challenges/edit/${challenge?._id}`}><BsPencilSquare/></Link>
+                                                <button onClick={() => handleTrash(challenge?._id)} className={styles.buttonTrash}><BsTrashFill/></button>
+                                            </div>
+                                        )
+                                    } 
+                                </div>
                                 <p>{challenge?.desc}</p>
                                 <div className={styles.buttonContainer}>
                                     <Link to={`/create/post/${challenge?._id}`} className="button">Aceitar Desafio</Link>

@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import styles from "./Guilds.module.css"
 
 import {api} from "../../services/api"
+import { useParams } from "react-router-dom";
+import {useQuery} from "../../hooks/useQuery"
 
 // components
 import GuildCard from "../../components/GuildCard";
@@ -9,21 +11,34 @@ import SearchInput from "../../components/SearchInput"
 
 const Guilds = () => {
 
+    const query = useQuery()
+    const search = query.get("q")
+
     const [token] = useState<any>(localStorage.getItem("token") || "")
-    const UserName = localStorage.getItem("user")
+    //const UserName = localStorage.getItem("user")
     const [guilds, setGuilds] = useState([])
+
     const [user, setUser] = useState<any>()
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
 
-        api.get("/guilds", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(res => {
-            setGuilds(res.data)
-        })
+        if(search){
+        
+            api.get(`/guilds/search?q=${search}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(res => setGuilds(res.data))
+        
+        } else {
+
+            api.get("/guilds", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(res => setGuilds(res.data))
+        }
 
         api.get("/users", {
             headers: {
@@ -35,7 +50,7 @@ const Guilds = () => {
 
         setLoading(false)
 
-    }, [])
+    }, [search])
 
     const handlePermission = (guild: string): void => {
         api.patch(`/guilds/permission/${guild}`, {
@@ -53,9 +68,9 @@ const Guilds = () => {
 
     return (
         <div className={styles.container}>
-            <form>
+            <div>
                 <SearchInput/>
-            </form>
+            </div>
 
             {
                 guilds && guilds.map((guild: any) => (

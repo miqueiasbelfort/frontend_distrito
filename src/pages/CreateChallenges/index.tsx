@@ -3,11 +3,12 @@ import styles from "./CreateChallenges.module.css"
 
 import Button from "../../components/Button"
 import { api } from "../../services/api";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const CreateChallenges = () => {
 
-    const {id} = useParams()
+    const {id, challengeId} = useParams()
+    const naviagete = useNavigate()
 
     const [token] = useState(localStorage.getItem("token"))
 
@@ -16,27 +17,61 @@ const CreateChallenges = () => {
     const [link, setLink] = useState<string>("")
     const [score, setScore] = useState<number | string>("")
 
+    useEffect(() => {
+
+        if(challengeId){
+            api.get(`/challenge/${challengeId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(res => {
+                setTitle(res.data.title)
+                setDesc(res.data.desc)
+                setLink(res.data.link)
+                setScore(res.data.score)
+            })
+        }
+
+    }, [challengeId])
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        api.post(`/challenge/create/${id}`, {
-            title,
-            link,
-            desc,
-            score
-        },{
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).catch(err => {
-            console.log(err.response.data.error)
-        })
+        if(challengeId){
+
+            api.patch(`/challenge/edit/${challengeId}`,{
+                title,
+                link,
+                desc,
+                score
+            },{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(() => naviagete("/challenges")).catch(err => {
+                console.log(err.response.data.error)
+            })
+
+        } else {
+            api.post(`/challenge/create/${id}`, {
+                title,
+                link,
+                desc,
+                score
+            },{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(() => naviagete("/challenges")).catch(err => {
+                console.log(err.response.data.error)
+            })
+        }
     }
 
     return (
         <div className={styles.container}>
             <div className={styles.title}>
-                <h2>Criar Desafio</h2>
+                <h2>{challengeId ? "Editar" : "Criar"} Desafio</h2>
             </div>
             <form className={`${styles.formContainer} containerDark`} onSubmit={handleSubmit}>
                 <label>
@@ -80,7 +115,7 @@ const CreateChallenges = () => {
                 </label>
                 <Button
                     type="submit"
-                    textBtn="Criar Desafio"
+                    textBtn={challengeId ? "Editar Desafio" : "Criar Desafio"}
                 />
             </form>
         </div>
