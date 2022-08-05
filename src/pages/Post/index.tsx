@@ -1,21 +1,24 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, FormEvent} from "react"
 import styles from "./Post.module.css"
 
 // components
 import { AiFillLike, AiFillCloseCircle, AiFillCheckCircle } from "react-icons/ai"
 import Button from "../../components/Button"
 import CommentCard from "../../components/CommentCard"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { api } from "../../services/api"
 import { uploads } from "../../utils/config"
 
 const Post = () => {
 
     const {id} = useParams()
+    const navigate = useNavigate()
 
     const [isLiked, setIsLiked] = useState<boolean>(false)
     const [isComplete, setIsComplete] = useState<boolean>(false)
     const [isInComplete, setIsImComplete] = useState<boolean>(false)
+
+    const [comment, setComment] = useState<string>("")
 
     const [loading, setLoading] = useState<boolean>(true)
     const [token] = useState(localStorage.getItem("token"))
@@ -39,15 +42,60 @@ const Post = () => {
     }, [id])
 
     const handleLike = () => {
-        setIsLiked(!isLiked)
+        api.patch(`/posts/like/${post?._id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(() => {
+            setIsLiked(!isLiked)
+        }).catch(err => {
+            console.log(err.response.data.error)
+        })
     }
+
+
     const handleComplete = () => {
-        setIsComplete(!isComplete)
-        setIsImComplete(false)
+
+        api.patch(`/posts/complete/${post?._id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(() => {
+            setIsComplete(!isComplete)
+            setIsImComplete(false)
+        }).catch(err => {
+            console.log(err.response.data.error)
+        })
+
     }
+
     const handleInComplete = () => {
-        setIsImComplete(!isInComplete)
-        setIsComplete(false)
+        api.patch(`/posts/incomplete/${post?._id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(() => {
+            setIsImComplete(!isInComplete)
+            setIsComplete(false)
+        }).catch(err => {
+            console.log(err.response.data.error)
+        })
+    }
+
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        api.patch(`/posts/comment/${post?._id}`, {comment}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => {
+            console.log(res.data.message)
+        }).catch(err => {
+            console.log(err.responsa.data.error)
+        })
+
     }
 
     if(loading){
@@ -75,27 +123,27 @@ const Post = () => {
                     <button 
                         className={isLiked ? styles.likeButtonActive : styles.likeButtonInActive}
                         onClick={handleLike}
-                    > <AiFillLike/> Like - 2k</button>
+                    > <AiFillLike/> Like - {post?.likes.length}</button>
                     <div className={styles.checkButtons}>
                         <button 
                             className={isComplete ? styles.completeButtonActive: styles.completeButtonInActive}
                             onClick={handleComplete}
-                        > <AiFillCheckCircle/> Completo -  215</button>
+                        > <AiFillCheckCircle/> Completo -  {post?.complete.length}</button>
                         <button 
                             className={isInComplete ? styles.incompleteButtonActive : styles.incompleteButtonInActive}
                             onClick={handleInComplete}
-                        > <AiFillCloseCircle/> Incompleto - 25</button>
+                        > <AiFillCloseCircle/> Incompleto - {post?.incomplete.length}</button>
                     </div>
                 </div>
             </div>
 
             <div className={styles.commentContainerPost}>
-                <form className="commentForm">
+                <form className="commentForm" onSubmit={handleSubmit}>
                     <div className={styles.informationUserComment}>
                         <img src={`${uploads}/images/users/${post?.photoUser}`} alt="userImgComment" />
                         <span>{post?.userName}</span>
                     </div>
-                    <input type="text" placeholder="Deixe um commentario!"/>
+                    <input type="text" placeholder="Deixe um commentario!" onChange={e => setComment(e.target.value)}/>
                     <div className={styles.btnContainer}>
                         <Button
                             type="submit"
@@ -104,9 +152,16 @@ const Post = () => {
                     </div>
                 </form>
                 <div className={styles.commentsContainer}>
-                    <CommentCard/>
-                    <CommentCard/>
-                    <CommentCard/>
+                    {
+                        post?.comments.map((comment: any, index: number) => (
+                            <CommentCard
+                                key={comment?.comment}
+                                image={comment?.userPhoto}
+                                username={comment?.userName}
+                                text={comment?.comment}
+                            />
+                        ))
+                    }
                 </div>
             </div>
         </div>

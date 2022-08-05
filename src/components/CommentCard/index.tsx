@@ -1,16 +1,23 @@
 import React from "react";
 import "./CommentCard.css"
 
-// Components
+type Props = {
+    image: string,
+    username: string,
+    text: string
+}
 
-const CommentCard = () => {
+// Components
+import { uploads } from "../../utils/config";
+
+const CommentCard = ({image, username, text}:Props) => {
     return (
         <div className="commentCard containerDark">
             <div className="inforCommenterUser">
-                <img src={""} alt="userImgComment" />
-                <h3>Username</h3>
+                <img src={`${uploads}/images/users/${image}`} alt="userImgComment" />
+                <h3>{username}</h3>
             </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa aliquid accusantium totam id, consectetur dolor in distinctio sit iste eius ducimus fuga? Temporibus laudantium, delectus adipisci a eos voluptatum suscipit!</p>
+            <p>{text}</p>
         </div>
     )
 }
