@@ -5,7 +5,7 @@ import styles from "./Post.module.css"
 import { AiFillLike, AiFillCloseCircle, AiFillCheckCircle } from "react-icons/ai"
 import Button from "../../components/Button"
 import CommentCard from "../../components/CommentCard"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, Link } from "react-router-dom"
 import { api } from "../../services/api"
 import { uploads } from "../../utils/config"
 
@@ -19,6 +19,7 @@ const Post = () => {
     const [isInComplete, setIsImComplete] = useState<boolean>(false)
 
     const [comment, setComment] = useState<string>("")
+    const [user, setUser] = useState<any>({})
 
     const [loading, setLoading] = useState<boolean>(true)
     const [token] = useState(localStorage.getItem("token"))
@@ -36,10 +37,16 @@ const Post = () => {
         }).catch(err => {
             console.log(err.response.data.error)
         })
+        
+        api.get("/users", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => setUser(res.data))
 
         setLoading(false)
 
-    }, [id])
+    }, [id, token])
 
     const handleLike = () => {
         api.patch(`/posts/like/${post?._id}`, {
@@ -107,7 +114,7 @@ const Post = () => {
             <div className={styles.inforPostContainer}>
                 <div className={styles.infoUserPost}>
                     <img src={`${uploads}/images/users/${post?.photoUser}`} alt={post?.userName}  className={styles.userPhotoOfPost}/>
-                    <h2>{post?.userName}</h2>
+                    <Link to={`/profile/${post?.userName}`}><h2>{post?.userName}</h2></Link>
                 </div>
                 <div className={styles.whereIsTheChallenge}>
                     <h3>{post?.challenge}</h3>
@@ -140,8 +147,8 @@ const Post = () => {
             <div className={styles.commentContainerPost}>
                 <form className="commentForm" onSubmit={handleSubmit}>
                     <div className={styles.informationUserComment}>
-                        <img src={`${uploads}/images/users/${post?.photoUser}`} alt="userImgComment" />
-                        <span>{post?.userName}</span>
+                        <img src={`${uploads}/images/users/${user?.userPhoto}`} alt="userImgComment" />
+                        <span>{user?.username}</span>
                     </div>
                     <input type="text" placeholder="Deixe um commentario!" onChange={e => setComment(e.target.value)}/>
                     <div className={styles.btnContainer}>

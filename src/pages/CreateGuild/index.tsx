@@ -101,7 +101,7 @@ const CreateGuild = () => {
 
                     <div className="fileGuild">
                         <div className="imgPreviewGuild">
-                            <img src={imgPreview ? URL.createObjectURL(imgPreview) : `${uploads}/images/guilds/${theGuild?.guildPhoto}`} alt="" />
+                            <img src={imgPreview ? URL.createObjectURL(imgPreview) : `${uploads}/images/guilds/${theGuild?.guildPhoto}`} alt={theGuild?.guildname} />
                         </div>
                         <label className="fileContainerGuildChoice">
                             <span>Escolher IMG</span>

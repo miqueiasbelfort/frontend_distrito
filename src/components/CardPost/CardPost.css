@@ -31,8 +31,15 @@
     align-items: center;
     gap: 1em;
 }
-.completeOrNot svg {
+.complete,
+.dark .complete  {
     font-size: 1em;
+    color: var(--green-color800);
+}
+.incomplete,
+.dark .incomplete  {
+    font-size: 1em;
+    color: red;
 }
 
 @media screen and (max-width: 768px){

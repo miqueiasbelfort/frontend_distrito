@@ -51,7 +51,7 @@ const Profile = () => {
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        }).then(() => setIsFollow(true)).catch(err => console.log(err.response.data.error))
+        }).then(() => setIsFollow(!isFollow)).catch(err => console.log(err.response.data.error))
     }
 
     if(loading){
@@ -90,9 +90,7 @@ const Profile = () => {
             {user?.username !== userLocalStorege ? (
                 <>
                    <button className="button" onClick={handleClick}>
-                    { 
-                        !user?.followings.includes(userTokenName._id) ? "Deixar de seguir" : "Seguir"
-                    }
+                    { isFollow || user?.followings.includes(userTokenName?._id) ? "Deixar de seguir" : "Seguir" }
                    </button>
                 </>
             ) : (

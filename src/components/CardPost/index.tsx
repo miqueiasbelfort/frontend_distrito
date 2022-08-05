@@ -6,7 +6,9 @@ interface IcardFeed {
   text: string,
   userPhoto: string,
   image: string,
-  idPost: string
+  idPost: string,
+  complete?: any[0],
+  incomplete?: any[0]
 }
 
 // componets
@@ -16,7 +18,7 @@ import { Link } from "react-router-dom"
 import {uploads} from "../../utils/config"
 
 
-const CardPost = ({username, text, userPhoto, image, idPost}: IcardFeed) => {
+const CardPost = ({username, text, userPhoto, image, idPost, complete, incomplete}: IcardFeed) => {
   return (
     <div className="cardFeed containerDark">
       <div className="feedUserInformations">
@@ -29,8 +31,17 @@ const CardPost = ({username, text, userPhoto, image, idPost}: IcardFeed) => {
       <img className="imgPost" src={`${uploads}/images/posts/${image}`} alt="Feed Image" />
       <div className="feedInformations">
         <div className="completeOrNot">
-          <HiOutlineBadgeCheck />
-          <span>Completo</span>
+          {complete?.length >= incomplete?.length ? (
+            <>
+              <HiOutlineBadgeCheck className="complete"/>
+            <span>Completo</span>
+            </>
+          ): (
+            <>
+              <IoIosCloseCircleOutline className="incomplete"/>
+              <span>Incompleto</span>
+            </>
+          )}
         </div>
         <Link to={`/feed/${idPost}`}>Ver Mais</Link>
       </div>

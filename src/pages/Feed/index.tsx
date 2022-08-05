@@ -30,6 +30,8 @@ const Feed = () => {
                         text={post?.text}
                         image={post?.postPhoto}
                         idPost={post?._id}
+                        complete={post?.complete}
+                        incomplete={post?.incomplete}
                     />
                 ))}
                 {posts.length === 0 && (

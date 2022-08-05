@@ -22,6 +22,7 @@ const EditUser = () => {
     const [username, setUsername] = useState<string>("")
     const [link, setLink] = useState<string>("")
     const [bio, setBio] = useState<string>("")
+    const [imgPreview, setImagePreview] = useState<any>("")
 
     const [user, setUser] = useState<any>([])
 
@@ -45,6 +46,7 @@ const EditUser = () => {
 
     const fileOnChange = (e: FormEvent<HTMLFormElement>): void => {
         setFile(e.target.files[0])
+        setImagePreview(e.target.files[0])
     }   
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -80,7 +82,7 @@ const EditUser = () => {
             <form onSubmit={handleSubmit} className={`${styles.formContainer} containerDark`}>
                 <div className={styles.imageContainerFile}>
                     <label className={styles.labelContainer}>
-                        <img src={`${uploads}/images/users/${user?.userPhoto}`} alt={user?.usename} />
+                        <img src={imgPreview ? URL.createObjectURL(imgPreview) : `${uploads}/images/users/${user?.userPhoto}`} alt={user?.usename} />
                         <input type="file" onChange={fileOnChange}/>
                     </label>
                 </div>
